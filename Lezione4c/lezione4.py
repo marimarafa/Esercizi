@@ -5,9 +5,9 @@
 8-1. Message: Write a function called display_message() that prints one sentence telling everyone what you are learning about in 
 this chapter. Call the function, and make sure the message displays correctly.
 """
-def display_message(message:str)-> str:
-    print(message)
-display_message("What are you learning about in this lesson? \n")
+#funzione dichiarata nel file message.py
+import message
+message.display_message("What are you learning about in this lesson? \n")
 
 """
 8-2. Favorite Book: Write a function called favorite_book() that accepts one parameter, title. The function should print a message,
@@ -157,6 +157,7 @@ age 45, hair brown, weight 67"
 def build_profile(name:str,age:int,hair:str,weight:int,tall:int) -> str :
     return str(f'\nname :{name} , age :{age} , hair :{hair}, weight :{weight}, tall :{tall}')
 print(build_profile("Mario Rossi",30, "brown" , 70, 170))
+print("\n")
 
 """
 8-14. Cars: Write a function that stores information about a car in a dictionary. The function should always receive a manufacturer and a model
@@ -164,6 +165,52 @@ name. It should then accept an arbitrary number of keyword arguments. Call the f
 pairs, such as a color or an optional feature. Your function should work for a call like this one: car = make_car('subaru', 'outback', 
 color='blue', tow_package=True) Print the dictionary that’s returned to make sure all the information was stored correctly.
 """
+#chiamare la funzione dal file car.py
+def make_car(manufacturer:str,model:str,color = None,tow_package=True or False) -> dict :
+    car = {}
+    car["manufacturer"] = manufacturer
+    car["model"] = model
+    if color is not None:
+        car['color'] = color
+    car['tow_package'] = tow_package
+    return car
+print(make_car('subaru','outback',color='blue',tow_package=False))
 
-    
-    
+"""
+8-15. Printing Models: Put the functions for the example printing_models.py in a separate file called printing_functions.py.
+Write an import statement at the top of printing_models.py, and modify the file to use the imported functions.
+"""
+from printing_functions import printing_text
+printing_text("\nHello everyone, have a nice day!")
+print("\n")
+
+"""
+8-16. Imports: Using a program you wrote that has one function in it, store that function in a separate file. Import the function into your main
+program file, and call the function using each of these approaches:
+import module_name
+from module_name import function_name
+from module_name import function_name as fn
+import module_name as mn
+from module_name import *
+"""
+#usare la funzione dell'esercizio 8-1 nel file message.py
+from message import display_message
+display_message("Good morning")
+from message import display_message as dm
+dm("Have a good day")
+import message as ms
+ms.display_message("Studying pyhton")
+from message import *
+display_message("byeeeee")
+
+"""
+8-17. Styling Functions: Choose any three programs you wrote for this chapter, and make sure they follow the
+styling guidelines described in this section.
+"""
+
+
+
+
+
+                
+        
