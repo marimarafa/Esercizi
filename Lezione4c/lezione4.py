@@ -202,8 +202,3 @@ import message as ms
 ms.display_message("Studying pyhton")
 from message import *
 display_message("byeeeee")
-
-"""
-8-17. Styling Functions: Choose any three programs you wrote for this chapter, and make sure they follow the
-styling guidelines described in this section.
-""" 
