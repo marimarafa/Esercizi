@@ -132,4 +132,3 @@ def visiting_tree_iterative(tree: dict[int, list[int]], root: int,level:int):
 
 tree = {1:[2,3] , 2:[4,5] , 3:[None,None] , 4:[None,None] , 5:[None,None]}
 visiting_tree_iterative(tree,1,2)
-#
