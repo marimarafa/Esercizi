@@ -1,0 +1,44 @@
+class Persona:
+    def __init__(self,name:str,
+                 surname:str,
+                 date_of_birth:str,
+                 genere:str) -> None:
+        
+        self.name:str = name
+        self.surname :str = surname
+        self.date_of_birth:str = date_of_birth
+        self.genere :str = genere
+    
+    def calcola_età(self) -> int:
+        return 10
+    
+person_1 :Persona = Persona(name= "marim",
+                            surname="arafa",
+                            date_of_birth="25/11/2004",
+                            genere= "Femmina")
+class Dipendente(Persona):
+    def __init__(self,
+                name: str,
+                surname: str,
+                date_of_birth: str,
+                genere: str,
+                ore_lavorate:int) -> None:
+        
+        super().__init__(name, surname, date_of_birth, genere)
+        self.ore_lavorate = ore_lavorate
+
+    def calcola_stipendio(self) -> float:
+        return 500.0
+
+
+dipendente_1 :Dipendente = Dipendente(name= "marim",
+                            surname="arafa",
+                            date_of_birth="25/11/2004",
+                            genere= "Femmina",
+                            ore_lavorate= 500)
+
+
+print(person_1.calcola_età())
+print(dipendente_1.name)
+print(dipendente_1.calcola_stipendio())
+print(dipendente_1.ore_lavorate)
