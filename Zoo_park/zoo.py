@@ -49,11 +49,9 @@ class Fence:
         return f"Fence: Area={self.area}, Temperature={self.temperature}, Habitat={self.habitat}, Animals={len(self.animals)}"
 
 class Zoo:
-    def __init__(self,
-                 fences:Fence,
-                 guardians :ZooKeeper):
-        self.fences = fences([])
-        self.guardians = guardians([])
+    def __init__(self):
+        self.fences = []
+        self.guardians = []
         
     def add_fence(self, fence):
         self.fences.append(fence)
