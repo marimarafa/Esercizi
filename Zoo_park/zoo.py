@@ -16,6 +16,23 @@ class ZooKeeper:
     
     def __str__(self):
         return f"Zoo keeper: name={self.name},surname={self.surname},id={self.id}"
+    
+class Fence:
+    def __init__(self,
+                 height: float,
+                 width : float,
+                 temperature: float,
+                 habitat: str):
+        
+        self.height = height
+        self.width = width
+        self.area = self.height * self.width
+        self.temperature = temperature
+        self.habitat = habitat
+        self.animals = []
+        
+    def __str__(self):
+        return f"\nFence: area={self.area},temperature={self.temperature},habitat={self.habitat}"
 
 class Animal:
     def __init__(self,
@@ -35,24 +52,8 @@ class Animal:
         self.health = round(100 * (1 / age), 3)
         
     def __str__(self):
-        return f"Animal : name= {self.name} ,speces= {self.species},age= {self.age},height= {self.height},width= {self.width},preffered habitat= {self.preferred_habitat},health= {self.health}"        
+        return f"\nwith animals : name= {self.name} ,speces= {self.species},age= {self.age},height= {self.height},width= {self.width},preffered habitat= {self.preferred_habitat},health= {self.health}"        
 
-class Fence:
-    def __init__(self,
-                 height: float,
-                 width : float,
-                 temperature: float,
-                 habitat: str):
-        
-        self.height = height
-        self.width = width
-        self.area = self.height * self.width
-        self.temperature = temperature
-        self.habitat = habitat
-        self.animals = []
-        
-    def __str__(self):
-        return f"Fence: area={self.area},temperature={self.temperature},habitat={self.habitat},animals={len(self.animals)}"
 
 class Zoo:
     def __init__(self,
@@ -62,17 +63,20 @@ class Zoo:
         self.fences = fence
         self.guardians = guradians
         
-    def add_animal(self,animal:Animal,fence:Fence):
+    def add_animal(self,
+                   animal:Animal,
+         fence:Fence):
+        
         for fence in self.fences:
             if animal not in fence:
                 if animal.preferred_habitat == fence.habitat and fence.area > len(fence.animals):
                     fence.animals.append(animal)
-                    fence.area = fence.area - (self.height * self.width)
+                    fence.area = fence.area - (animal.height * animal.width)
                     return f"{animal.name} è stato aggiunto al recinto {fence},l'area libera rimasta nel recinto è {fence.area}."
                 else:  
                     return f"Non ci sono recinti adatti o spazio disponibile per questo animale."
                 
-    def remove_animal(self,animal:Animal):
+    def remove_animal(self,animal:Animal,fence:Fence):
         for fence in self.fences:
             if animal in fence.animals:
                 fence.animals.remove(animal)
@@ -87,6 +91,8 @@ class Zoo:
     def add_guardian(self, guardian:ZooKeeper):
         self.guardians.append(guardian)
 
-animale: Animal=Animal("pippo","cane",34,3.4,4.5,"giungla")
-recinto :Fence = Fence(17.9,23.6,45.0,"giungla")
+animale: Animal=Animal("fv","fefsw",34,3.4,4.5,"fe")
+animale2:Animal = Animal("fv","few",34,3.4,4.5,"fe")
+recinto :Fence = Fence(17.9,23.6,45.0,"fe")
+print(recinto,animale,animale2)
 print(Zoo.add_animal(animale,recinto))
