@@ -58,20 +58,28 @@ class Animal:
 class Zoo:
     def __init__(self,
                  fence:Fence,
-                 guradians :ZooKeeper):
+                 guradians :ZooKeeper,
+                 animal :Animal):
+    
         
         self.fences = fence
         self.guardians = guradians
+        self.animal = animal
+    
+    def get_fence (self):
+        return self.fences
+    def get_guradians(self):
+        return self.guardians
         
     def add_animal(self,
                    animal:Animal,
-         fence:Fence):
+                    fence:Fence):
         
-        for fence in self.fences:
+        for fence in self.get_fence():
             if animal not in fence:
                 if animal.preferred_habitat == fence.habitat and fence.area > len(fence.animals):
                     fence.animals.append(animal)
-                    fence.area = fence.area - (animal.height * animal.width)
+                    fence.area -= (animal.height * animal.width)
                     return f"{animal.name} è stato aggiunto al recinto {fence},l'area libera rimasta nel recinto è {fence.area}."
                 else:  
                     return f"Non ci sono recinti adatti o spazio disponibile per questo animale."
@@ -94,5 +102,6 @@ class Zoo:
 animale: Animal=Animal("fv","fefsw",34,3.4,4.5,"fe")
 animale2:Animal = Animal("fv","few",34,3.4,4.5,"fe")
 recinto :Fence = Fence(17.9,23.6,45.0,"fe")
+zoo:Zoo= Zoo(animal= animale, fence= recinto,guradians=None)
 print(recinto,animale,animale2)
-print(Zoo.add_animal(animale,recinto))
+print(zoo.add_animal(animale,recinto))
