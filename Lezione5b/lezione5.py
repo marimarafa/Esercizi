@@ -115,7 +115,7 @@ class IceCreamStand(Restaurant):
         self.flavors = flavors
 
     def iceCream_falvors(self):
-        print("Ice cream flavors:")
+        print("\nIce cream flavors:")
         for flavor in self.flavors:
             print(f'    {flavor}')
 
@@ -126,8 +126,23 @@ print(ice_cream.iceCream_falvors())
 that stores a list of strings like "can add post", "can delete post", "can ban user", and so on. Write a method called show_privileges() that lists the administrator’s set of privileges.
  Create an instance of Admin, and call your method.
 """
-
-
+class Admin(User):
+    def __init__(self, first_name: str,
+                  last_name: str,
+                    email: str,
+                      password: int,
+                        num_phone: int,
+                          login_attempts: int,
+                          previleges :list[str] = []) -> None:
+        super().__init__(first_name, last_name, email, password, num_phone, login_attempts)
+        self.previleges = previleges
+    
+    def show_previleges(self):
+        print(f'\nThe admin {self.first_name} can:')
+        for prev in self.previleges:
+            print(prev)
+admin :Admin = Admin(first_name= "sofia",last_name="Bob",email="sofiabob23@gmail.com",password=767934,num_phone=33256788,login_attempts=5,previleges=["delete post","ban user","add post"])
+print(admin.show_previleges())
 
 
 
