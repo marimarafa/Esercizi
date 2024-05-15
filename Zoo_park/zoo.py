@@ -12,16 +12,15 @@ class Zoo:
         return self.fences
 
     def add_animal(self, animal, fence):
-            if fence.area >= animal.height * animal.width and animal.preferred_habitat == fence.habitat:
-                  if not self.area >= animal.height * animal.width(animal):
-            print(f"There is no enough space for this animal in this fence.")
-        if animal not in self.animals:
-            self.animals.append(animal)
-            return self.area == self.area - (animal.height * animal.width)
+            if animal in fence.animals:
+                return f'The {animal.name} already exist in this fence'
+            if not fence.area >= animal.height * animal.width:
+                print(f"There is no enough space for this animal in this fence.")
+            if animal not in fence.animals and fence.area >= animal.height * animal.width and animal.preferred_habitat == fence.habitat:
                 fence.animals.append(animal)
-                fence.area -= animal.height * animal.width
+                fence.area -= (animal.height * animal.width)
                 return(f"{animal.name} add into {fence.habitat} fence, remeaning area :{round(fence.area,3)}")
-            else:
+            if animal.preferred_habitat != fence.habitat:
                 return (f"Cannot add {animal.name} in  {fence.habitat} fence.")
 
     def remove_animal(self, animal, fence):
@@ -33,16 +32,16 @@ class Zoo:
             return(f'Animal removed correctly! Area of the fence is now updated to : {round(fence.area,3)}')
 
     def describe_zoo(self):
-        print("Guardians:")
+        print("\nGuardians:\n")
         for guardian in self.get_zoo_keepers():
             print(guardian)
-        print("\nFences:")
+        print("\nFences:\n")
         for fence in self.get_fences():
-            print(fence)
-            print("with animals:")
+            print(fence,"\n")
+            print("with animals:\n")
             for animal in fence.animals:
-                print(animal)
-        print("#" * 30)
+                print(animal,"\n")
+            print("#" * 30)
 
 class Animal:
     def __init__(self,
@@ -74,11 +73,6 @@ class Fence:
         self.temperature = temperature
         self.habitat = habitat
         self.animals = []
-
-    #def add_animal(self, animal):
-      
-
-    #def remove_animal(self, animal):
      
 
     def __str__(self):
@@ -96,7 +90,7 @@ class ZooKeeper:
                 animal.health *= 1.01
                 animal.height *= 1.02
                 animal.width *= 1.02
-            return(f"Fed {animal.name} , animal height:{round(animal1.height,3)},animal health: {round(animal.health,3)}, animal width: {round(animal.width,3)}")
+            return(f"Fed {animal.name} , animal height:{round(animal.height,3)},animal health: {round(animal.health,3)}, animal width: {round(animal.width,3)}")
 
  
     def clean(self, fence):
@@ -104,13 +98,12 @@ class ZooKeeper:
             occupied_area = animal.height * animal.width
             remaining_area = fence.area - occupied_area
             if remaining_area >= 0 :
-                return occupied_area
-            return occupied_area / remaining_area
+                return round(occupied_area,3)
+            else:
+                return round(occupied_area / remaining_area,3)
 
     def __str__(self):
         return f"ZooKeeper(name={self.name}, surname={self.surname}, id={self.id})"
-
-
 
 
 fence1 = Fence(10000.32, 25.4, "Continentale")
@@ -124,12 +117,13 @@ zoo.fences.append(fence1)
 zoo.fences.append(fence2)
 animal1 = Animal("Scoiattolo", "Blabla", 25.8, 10.8, 10.8, "Continentale")
 animal2 = Animal("Lupo", "Lupus", 14.7, 20.7, 20.8, "Continentale")
-print(zoo.describe_zoo)
+print(zoo.add_animal(animal1, fence1))
 print(zoo.add_animal(animal1, fence1))
 print(zoo.add_animal(animal2, fence1))
-print(zoo.remove_animal(animal1,fence1))
+print(zoo.remove_animal(animal1,fence2))
 zoo_keeper1 = ZooKeeper("Lorenzo", "Maggi", 1234)
 zoo_keeper2= ZooKeeper("Luca", "rossi", 2335)
 print(zoo_keeper1.feed(animal1,fence1))
 print(zoo_keeper1.feed(animal2,fence1))
 print(zoo_keeper1.clean(fence1))
+print(zoo.describe_zoo())
