@@ -41,7 +41,7 @@ class Zoo:
             print("with animals:\n")
             for animal in fence.animals:
                 print(animal,"\n")
-            print("#" * 30)
+            print("#" * 30,"\n")
 
 class Animal:
     def __init__(self,
@@ -106,7 +106,7 @@ class ZooKeeper:
         return f"ZooKeeper(name={self.name}, surname={self.surname}, id={self.id})"
 
 
-fence1 = Fence(10000.32, 25.4, "Continentale")
+fence1 = Fence(10000.32, 25.4, "Continent")
 fence2 = Fence(140, 55.4, "Jungle")
 zoo_keeper1 = ZooKeeper("Lorenzo", "Maggi", 1234)
 zoo_keeper2= ZooKeeper("Luca", "rossi", 2335)
@@ -115,15 +115,17 @@ zoo.zoo_keepers.append(zoo_keeper1)
 zoo.zoo_keepers.append(zoo_keeper2)
 zoo.fences.append(fence1)
 zoo.fences.append(fence2)
-animal1 = Animal("Scoiattolo", "Blabla", 25.8, 10.8, 10.8, "Continentale")
-animal2 = Animal("Lupo", "Lupus", 14.7, 20.7, 20.8, "Continentale")
+animal1 = Animal("Scoiattolo", "Blabla", 25.8, 10.8, 10.8, "Continent")
+animal2 = Animal("Lupo", "Lupus", 14.7, 20.7, 20.8, "Continent")
+animal3 = Animal("pippo", "gghi", 1.0, 2.99, 2.8, "Jungle")
 print(zoo.add_animal(animal1, fence1))
 print(zoo.add_animal(animal1, fence1))
 print(zoo.add_animal(animal2, fence1))
+print(zoo.add_animal(animal3, fence2))
 print(zoo.remove_animal(animal1,fence2))
 zoo_keeper1 = ZooKeeper("Lorenzo", "Maggi", 1234)
 zoo_keeper2= ZooKeeper("Luca", "rossi", 2335)
 print(zoo_keeper1.feed(animal1,fence1))
 print(zoo_keeper1.feed(animal2,fence1))
 print(zoo_keeper1.clean(fence1))
-print(zoo.describe_zoo())
+zoo.describe_zoo()
