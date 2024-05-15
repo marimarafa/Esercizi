@@ -1,6 +1,6 @@
 from building import Building
 from room import Room
-from course import Course
+from course.course_ab import Course
 from people.student import Student
 from group import Group
            
