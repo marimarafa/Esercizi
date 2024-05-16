@@ -148,8 +148,10 @@ admin.show_previleges()
  method to this class. Make a Privileges instance as an attribute in the Admin class. Create a new instance of Admin and use your method to show its privileges.
 """
 class Privileges:
-    def __init__(self) -> None:
-        pass
+    def __init__(self,
+                 privileges : list[str]) -> None:
+        self.privileges = privileges
+        
 
 
 
