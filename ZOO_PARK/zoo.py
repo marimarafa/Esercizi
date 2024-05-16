@@ -66,8 +66,8 @@ class Animal:
 
 class Fence:
     def __init__(self,
-                 area: float,
-                 temperature: float,
+                 area: int,
+                 temperature: int,
                  habitat: str)-> None:
         self.area = area
         self.temperature = temperature
@@ -101,21 +101,19 @@ class ZooKeeper:
             occupied_area = animal.height * animal.width
             remaining_area = fence.area - occupied_area
             if remaining_area <= 0 :
-                return round(occupied_area,3)
+                return f'The time spent cleaning the {fence.habitat} fence :{round(occupied_area,3)}'
             else:
-                return round(occupied_area / remaining_area,3)
+                return f'The time spent cleaning the {fence.habitat} fence :{round(occupied_area / remaining_area,3)}'
 
     def __str__(self):
         return f"ZooKeeper(name={self.name}, surname={self.surname}, id={self.id})"
 
 
-fence1 = Fence(area=1000.32, temperature=25.4, habitat="Continent")
-fence2 = Fence(area=1400.93, temperature=55.4, habitat="Jungle")
+fence1 = Fence(area=1000, temperature=25, habitat="Continent")
+fence2 = Fence(area=1400, temperature=15, habitat="Jungle")
 zoo_keeper1 = ZooKeeper(name="Lorenzo", surname="Maggi", id=1234)
 zoo_keeper2= ZooKeeper(name="Luca", surname="rossi", id=2335)
-zoo = Zoo()
-zoo.zoo_keepers.append(zoo_keeper1)
-zoo.zoo_keepers.append(zoo_keeper2)
+zoo = Zoo(zoo_keepers=[zoo_keeper1,zoo_keeper2], fences=[fence1,fence2])
 zoo.fences.append(fence1)
 zoo.fences.append(fence2)
 animal1 = Animal(name="Scoiattolo", species="Blabla", height=25.8, width =10.8, age=10, preferred_habitat="Continent")
