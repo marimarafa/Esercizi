@@ -83,7 +83,7 @@ class ZooKeeper:
     def __init__(self,
                   name: str,
                     surname:str,
-                      id:str)-> None:
+                      id:int)-> None:
         self.name = name
         self.surname = surname
         self.id = id
@@ -96,7 +96,7 @@ class ZooKeeper:
             return(f"Fed {animal.name} , animal height:{round(animal.height,3)},animal health: {round(animal.health,3)}, animal width: {round(animal.width,3)}")
 
  
-    def clean(self, fence):
+    def clean(self, fence) -> float:
         for animal in fence.animals:
             occupied_area = animal.height * animal.width
             remaining_area = fence.area - occupied_area
@@ -109,26 +109,23 @@ class ZooKeeper:
         return f"ZooKeeper(name={self.name}, surname={self.surname}, id={self.id})"
 
 
-fence1 = Fence(1000.32, 25.4, "Continent")
-fence2 = Fence(140, 55.4, "Jungle")
-zoo_keeper1 = ZooKeeper("Lorenzo", "Maggi", 1234)
-zoo_keeper2= ZooKeeper("Luca", "rossi", 2335)
+fence1 = Fence(area=1000.32, temperature=25.4, habitat="Continent")
+fence2 = Fence(area=1400.93, temperature=55.4, habitat="Jungle")
+zoo_keeper1 = ZooKeeper(name="Lorenzo", surname="Maggi", id=1234)
+zoo_keeper2= ZooKeeper(name="Luca", surname="rossi", id=2335)
 zoo = Zoo()
 zoo.zoo_keepers.append(zoo_keeper1)
 zoo.zoo_keepers.append(zoo_keeper2)
 zoo.fences.append(fence1)
 zoo.fences.append(fence2)
-animal1 = Animal("Scoiattolo", "Blabla", 25.8, 10.8, 10.8, "Continent")
-animal2 = Animal("Lupo", "Lupus", 14.7, 20.7, 20.8, "Continent")
-animal3 = Animal("pippo", "gghi", 1.0, 2.99, 2.8, "Jungle")
-
+animal1 = Animal(name="Scoiattolo", species="Blabla", height=25.8, width =10.8, age=10, preferred_habitat="Continent")
+animal2 = Animal(name="Lupo", species="Lupus", height=14.7, age=7, width=20.8, preferred_habitat="Continent")
+animal3 = Animal(name="pippo", species="gghi", age=10, height=2.99,width= 2.8, preferred_habitat="Jungle")
 print(zoo.add_animal(animal1, fence1))
 print(zoo.add_animal(animal1, fence1))
 print(zoo.add_animal(animal2, fence1))
 print(zoo.add_animal(animal3, fence2))
 print(zoo.remove_animal(animal1,fence2))
-zoo_keeper1 = ZooKeeper("Lorenzo", "Maggi", 1234)
-zoo_keeper2= ZooKeeper("Luca", "rossi", 2335)
 print(zoo_keeper1.feed(animal1,fence1))
 print(zoo_keeper1.feed(animal2,fence1))
 print(zoo_keeper1.clean(fence1))
