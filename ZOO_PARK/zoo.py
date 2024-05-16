@@ -15,7 +15,7 @@ class Zoo:
             if animal in fence.animals:
                 return f'The {animal.name} already exist in this fence'
             if not fence.area >= animal.height * animal.width:
-                print(f"There is no enough space for this animal in this fence.")
+                return(f"There is no enough space for this animal in this fence.")
             if animal not in fence.animals and fence.area >= animal.height * animal.width and animal.preferred_habitat == fence.habitat:
                 fence.animals.append(animal)
                 fence.area -= (animal.height * animal.width)
@@ -50,7 +50,7 @@ class Animal:
                  age: int,
                  height: float,
                  width: float,
-                 preferred_habitat: str):
+                 preferred_habitat: str)-> None:
         
         self.name = name
         self.species = species
@@ -80,13 +80,16 @@ class Fence:
     
     
 class ZooKeeper:
-    def __init__(self, name, surname, id):
+    def __init__(self,
+                  name: str,
+                    surname:str,
+                      id:str)-> None:
         self.name = name
         self.surname = surname
         self.id = id
 
     def feed(self, animal,fence):
-            if fence.area >= animal.height * animal.width:
+            if fence.area > animal.height * animal.width:
                 animal.health *= 1.01
                 animal.height *= 1.02
                 animal.width *= 1.02
@@ -97,7 +100,7 @@ class ZooKeeper:
         for animal in fence.animals:
             occupied_area = animal.height * animal.width
             remaining_area = fence.area - occupied_area
-            if remaining_area >= 0 :
+            if remaining_area <= 0 :
                 return round(occupied_area,3)
             else:
                 return round(occupied_area / remaining_area,3)
@@ -106,7 +109,7 @@ class ZooKeeper:
         return f"ZooKeeper(name={self.name}, surname={self.surname}, id={self.id})"
 
 
-fence1 = Fence(10000.32, 25.4, "Continent")
+fence1 = Fence(1000.32, 25.4, "Continent")
 fence2 = Fence(140, 55.4, "Jungle")
 zoo_keeper1 = ZooKeeper("Lorenzo", "Maggi", 1234)
 zoo_keeper2= ZooKeeper("Luca", "rossi", 2335)
@@ -118,6 +121,7 @@ zoo.fences.append(fence2)
 animal1 = Animal("Scoiattolo", "Blabla", 25.8, 10.8, 10.8, "Continent")
 animal2 = Animal("Lupo", "Lupus", 14.7, 20.7, 20.8, "Continent")
 animal3 = Animal("pippo", "gghi", 1.0, 2.99, 2.8, "Jungle")
+
 print(zoo.add_animal(animal1, fence1))
 print(zoo.add_animal(animal1, fence1))
 print(zoo.add_animal(animal2, fence1))
@@ -128,4 +132,5 @@ zoo_keeper2= ZooKeeper("Luca", "rossi", 2335)
 print(zoo_keeper1.feed(animal1,fence1))
 print(zoo_keeper1.feed(animal2,fence1))
 print(zoo_keeper1.clean(fence1))
+print(zoo_keeper1.clean(fence2))
 zoo.describe_zoo()
