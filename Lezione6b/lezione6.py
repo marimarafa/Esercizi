@@ -178,22 +178,29 @@ class Die:
 
 die :Die = Die(sides= 6)
 die.roll_die()
+print("\n")
         
 """9-14. Lottery: Make a list or tuple containing a series of 10 numbers and 5 letters. Randomly select 4 numbers or letters from the list and print a message saying that any ticket matching 
 these 4 numbers or letters wins a prize.
 9-15. Lottery Analysis: You can use a loop to see how hard it might be to win the kind of lottery you just modeled. Make a list or tuple called my_ticket. Write a loop that keeps pulling numbers
-until your ticket wins. Print a message reporting how many times the loop had to run to give you a winning ticke
+until your ticket wins. Print a message reporting how many times the loop had to run to give you a winning ticket.
 """
-win_ticket_series = [3,5,7,4,56,75,35,54,12,900,"f","j","I","o","M"]
-my_ticket = [4,900,"I","f"]
+win_ticket_series = [3,5,7,4,56,"f","j",75,35,54,12,900,"I","o","M"]
+my_ticket = []
+my_ticket.append(random.choice(win_ticket_series))
+my_ticket.append(random.choice(win_ticket_series))
+my_ticket.append(random.choice(win_ticket_series))
+my_ticket.append(random.choice(win_ticket_series))
+print(my_ticket)
+my_ticket_to_won = []
 for elem in win_ticket_series:
     if elem in my_ticket:
-        print("This element is in my_ticket !")
-        elem += 1
-    if elem == my_ticket:
-        print("You won !")
-        print(elem)
-    print("try again")
+        print(f"This element: {elem} is in my_ticket !")
+        my_ticket_to_won.append(elem)
+    else: 
+        print("Try again")
+if len(my_ticket_to_won) == len(my_ticket):
+    print(f"You won! Your ticket is {my_ticket_to_won}")
 
 
 
