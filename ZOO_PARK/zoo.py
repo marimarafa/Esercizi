@@ -11,25 +11,8 @@ class Zoo:
     def get_fences(self):
         return self.fences
 
-    def add_animal(self, animal, fence):
-            if animal in fence.animals:
-                return f'The {animal.name} already exist in this fence'
-            if not fence.area >= animal.height * animal.width:
-                return(f"There is no enough space for this animal in this fence.")
-            if animal not in fence.animals and fence.area >= animal.height * animal.width and animal.preferred_habitat == fence.habitat:
-                fence.animals.append(animal)
-                fence.area -= (animal.height * animal.width)
-                return(f"{animal.name} add into {fence.habitat} fence, remeaning area :{round(fence.area,3)}")
-            if animal.preferred_habitat != fence.habitat:
-                return (f"Cannot add {animal.name} in  {fence.habitat} fence.")
-
-    def remove_animal(self, animal, fence):
-        if animal not in fence.animals:
-            return(f" The {animal.name} is not in this fence.")
-        else:
-            fence.animals.remove(animal)
-            fence.area == fence.area + (animal.height * animal.width)
-            return(f'Animal removed correctly! Area of the fence is now updated to : {round(fence.area,3)}')
+    
+       
 
     def describe_zoo(self):
         print("\nGuardians:\n")
@@ -88,6 +71,26 @@ class ZooKeeper:
         self.surname = surname
         self.id = id
 
+    def add_animal(self, animal, fence):
+            if animal in fence.animals:
+                return f'The {animal.name} already exist in this fence'
+            if not fence.area >= animal.height * animal.width:
+                return(f"There is no enough space for this animal in this fence.")
+            if animal not in fence.animals and fence.area >= animal.height * animal.width and animal.preferred_habitat == fence.habitat:
+                fence.animals.append(animal)
+                fence.area -= (animal.height * animal.width)
+                return(f"{animal.name} add into {fence.habitat} fence, remeaning area :{round(fence.area,3)}")
+            if animal.preferred_habitat != fence.habitat:
+                return (f"Cannot add {animal.name} in  {fence.habitat} fence.")
+
+    def remove_animal(self, animal, fence):
+        if animal not in fence.animals:
+            return(f" The {animal.name} is not in this fence.")
+        else:
+            fence.animals.remove(animal)
+            fence.area == fence.area + (animal.height * animal.width)
+            return(f'Animal removed correctly! Area of the fence is now updated to : {round(fence.area,3)}')
+
     def feed(self, animal,fence):
             if fence.area > animal.height * animal.width:
                 animal.health *= 1.01
@@ -119,11 +122,11 @@ zoo.fences.append(fence2)
 animal1 = Animal(name="Scoiattolo", species="Blabla", height=25.8, width =10.8, age=10, preferred_habitat="Continent")
 animal2 = Animal(name="Lupo", species="Lupus", height=14.7, age=7, width=20.8, preferred_habitat="Continent")
 animal3 = Animal(name="pippo", species="gghi", age=10, height=2.99,width= 2.8, preferred_habitat="Jungle")
-print(zoo.add_animal(animal1, fence1))
-print(zoo.add_animal(animal1, fence1))
-print(zoo.add_animal(animal2, fence1))
-print(zoo.add_animal(animal3, fence2))
-print(zoo.remove_animal(animal1,fence2))
+print(zoo_keeper1.add_animal(animal1, fence1))
+print(zoo_keeper1.add_animal(animal1, fence1))
+print(zoo_keeper1.add_animal(animal2, fence1))
+print(zoo_keeper1.add_animal(animal3, fence2))
+print(zoo_keeper1.remove_animal(animal1,fence2))
 print(zoo_keeper1.feed(animal1,fence1))
 print(zoo_keeper1.feed(animal2,fence1))
 print(zoo_keeper1.clean(fence1))
