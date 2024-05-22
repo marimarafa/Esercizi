@@ -49,37 +49,8 @@ print(restaurant3.describe_restaurant(),"\n")
  in a user profile. Make a method called describe_user() that prints a summary of the user’s information. Make another method called greet_user() that prints a
 personalized greeting to the user. Create several instances representing different users, and call both methods for each user.
 """
-class User:
-    def __init__(self,
-                  first_name :str,
-                 last_name :str,
-                 email :str,
-                 password :int,
-                 num_phone : int,
-                 login_attempts :int) -> None:
-        
-        self.first_name = first_name
-        self.last_name = last_name
-        self.email = email
-        self.password = password
-        self.num_phone = num_phone
-        self.login_attempts = login_attempts
+from user import User
 
-    def describe_user(self):
-        return f'user name :{self.first_name} {self.last_name}, email :{self.email}, password :{self.password}: phone number :{self.num_phone}'
-    def great_user(self):
-        return f'Welcome {self.first_name} {self.last_name}! It is great to see you'
-    def increment_login_attempts(self):
-        while self.login_attempts:
-            self.login_attempts += 1
-            return f'login attempts :{self.login_attempts}'
-    def reset_login_attempts(self):
-        while self.login_attempts > 0:
-            self.login_attempts -=1
-            print(f'you have  {self.login_attempts+1} login attempts left')
-            if self.login_attempts == 0:
-                return("You have 0 login attempts")   
-    
 user1 :User = User(first_name= "marco", last_name= "rossi",email="marcorossi32@gmail.com" ,password= 215435,num_phone= 467879700,login_attempts= 3)
 user2 :User = User(first_name= "luca", last_name= "verdi",email="verdiluca@gmail.com" ,password= 4335578,num_phone= 466646460,login_attempts=3)
 user3 :User = User(first_name= "alice", last_name= "gialli",email="malicegialli@gmail.com" ,password= 56765785,num_phone= 46787575450,login_attempts=3)
@@ -129,44 +100,11 @@ ice_cream.iceCream_falvors()
 that stores a list of strings like "can add post", "can delete post", "can ban user", and so on. Write a method called show_privileges() that lists the administrator’s set of privileges.
  Create an instance of Admin, and call your method.
 """
-class Admin(User):
-    def __init__(self, first_name: str,
-                  last_name: str,
-                    email: str,
-                      password: int,
-                        num_phone: int,
-                          login_attempts: int,
-                          privileges :list[str] = []) -> None:
-        super().__init__(first_name, last_name, email, password, num_phone, login_attempts)
-        
-        self.privileges = Privileges(privileges=privileges)
-        
-    
-
+#esercizio risolto nel file admin_priv.py
 """9-8. Privileges: Write a separate Privileges class. The class should have one attribute, privileges, that stores a list of strings as described in Exercise 9-7. Move the show_privileges()
  method to this class. Make a Privileges instance as an attribute in the Admin class. Create a new instance of Admin and use your method to show its privileges.
 """
-class Privileges:
-    def __init__(self,
-                 privileges : list[str]) -> None:
-        self.privileges = privileges
-        
-    def show_privileges(self):
-        print(f'\nThe admin {admin.first_name} can:')
-        for prev in self.privileges:
-            print(prev)
-admin :Admin = Admin(first_name= "sofia",last_name="Bob",email="sofiabob23@gmail.com",password=767934,num_phone=33256788,login_attempts=5,privileges=["delete post","ban user","add post"])
-admin.privileges.show_privileges()
-print("\n")
-
-"""9-11. Imported Admin: Start with your work from Exercise 9-8. Store the classes User, Privileges, and Admin in one module. Create a separate file, make an Admin instance, 
-and call show_privileges() to show that everything is working correctly.
-"""
-##############################################################################################
-"""9-12. Multiple Modules: Store the User class in one module, and store the Privileges and Admin classes in a separate module. In a separate file, create an Admin instance and call
-show_privileges() to show that everything is still working correctly.
-"""
-#############################################################################
+#esercizio risolto nel file admin_priv.py
 
 """9-13. Dice: Make a class Die with one attribute called sides, which has a default value of 6. Write a method called roll_die() that prints a random number between 1 and the number of sides
 the die has. Make a 6-sided die and roll it 10 times. Make a 10-sided die and a 20-sided die. Roll each die 10 times.
