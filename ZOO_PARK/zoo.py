@@ -11,9 +11,6 @@ class Zoo:
     def get_fences(self):
         return self.fences
 
-    
-       
-
     def describe_zoo(self):
         print("\nGuardians:\n")
         for guardian in self.get_zoo_keepers():

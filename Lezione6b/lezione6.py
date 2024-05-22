@@ -120,7 +120,7 @@ class IceCreamStand(Restaurant):
     def iceCream_falvors(self):
         print("\nIce cream flavors:")
         for flavor in self.flavors:
-            print(f'    {flavor}')
+            print(f'   {flavor}')
 
 ice_cream :IceCreamStand = IceCreamStand(name = "jcs", cuisine = "jfenfgel",flavors=["strawberry","lemon","chocolate"])
 ice_cream.iceCream_falvors()
@@ -136,17 +136,12 @@ class Admin(User):
                       password: int,
                         num_phone: int,
                           login_attempts: int,
-                          previleges :list[str] = []) -> None:
+                          privileges :list[str] = []) -> None:
         super().__init__(first_name, last_name, email, password, num_phone, login_attempts)
-        self.previleges = previleges
+        
+        self.privileges = Privileges(privileges=privileges)
+        
     
-    def show_previleges(self):
-        print(f'\nThe admin {self.first_name} can:')
-        for prev in self.previleges:
-            print(prev)
-admin :Admin = Admin(first_name= "sofia",last_name="Bob",email="sofiabob23@gmail.com",password=767934,num_phone=33256788,login_attempts=5,previleges=["delete post","ban user","add post"])
-admin.show_previleges()
-print("\n")
 
 """9-8. Privileges: Write a separate Privileges class. The class should have one attribute, privileges, that stores a list of strings as described in Exercise 9-7. Move the show_privileges()
  method to this class. Make a Privileges instance as an attribute in the Admin class. Create a new instance of Admin and use your method to show its privileges.
@@ -155,6 +150,14 @@ class Privileges:
     def __init__(self,
                  privileges : list[str]) -> None:
         self.privileges = privileges
+        
+    def show_privileges(self):
+        print(f'\nThe admin {admin.first_name} can:')
+        for prev in self.privileges:
+            print(prev)
+admin :Admin = Admin(first_name= "sofia",last_name="Bob",email="sofiabob23@gmail.com",password=767934,num_phone=33256788,login_attempts=5,privileges=["delete post","ban user","add post"])
+admin.privileges.show_privileges()
+print("\n")
 
 """9-11. Imported Admin: Start with your work from Exercise 9-8. Store the classes User, Privileges, and Admin in one module. Create a separate file, make an Admin instance, 
 and call show_privileges() to show that everything is working correctly.
@@ -174,30 +177,45 @@ class Die:
         self.sides = sides
 
     def roll_die(self):
-        print(random.randint(1,self.sides))
+        return(random.randint(1,self.sides))
+    
+    def roll_multiple_times(self,die , rolls: int) -> None:
+        for _ in range(rolls):
+            print(die.roll_die())
+        print("\n")
+    
+print("Rolling a 6-sided die 10 times:")
+die6 :Die = Die(sides=6)
+die6.roll_multiple_times(die6,10)
 
-die :Die = Die(sides= 6)
-die.roll_die()
-print("\n")
+print("Rolling a 10-sided die 10 times:")
+die10 = Die(sides=10)
+die10.roll_multiple_times(die10,10)
+
+print("Rolling a 20-sided die 10 times:")
+die20 = Die(sides=20)
+die20.roll_multiple_times(die20,10)
+
         
 """9-14. Lottery: Make a list or tuple containing a series of 10 numbers and 5 letters. Randomly select 4 numbers or letters from the list and print a message saying that any ticket matching 
-these 4 numbers or letters wins a prize.
-9-15. Lottery Analysis: You can use a loop to see how hard it might be to win the kind of lottery you just modeled. Make a list or tuple called my_ticket. Write a loop that keeps pulling numbers
+these 4 numbers or letters wins a prize."""
+win_ticket_series = [3, 5, 7, 4, 56, "f", "j", 75, 35, 54, 12, 900, "I", "o", "M"]
+
+winning_combination = random.sample(win_ticket_series, 4)
+
+print(f"Winning combination: {winning_combination},\n")
+
+"""9-15. Lottery Analysis: You can use a loop to see how hard it might be to win the kind of lottery you just modeled. Make a list or tuple called my_ticket. Write a loop that keeps pulling numbers
 until your ticket wins. Print a message reporting how many times the loop had to run to give you a winning ticket.
 """
-win_ticket_series = [3,5,7,4,56,"f","j",75,35,54,12,900,"I","o","M"]
-my_ticket = []
-my_ticket.append(random.choice(win_ticket_series))
-my_ticket.append(random.choice(win_ticket_series))
-my_ticket.append(random.choice(win_ticket_series))
-my_ticket.append(random.choice(win_ticket_series))
-print(my_ticket)
-my_ticket_to_won = []
-for elem in win_ticket_series:
-    if elem in my_ticket:
-        print(f"This element: {elem} is in my_ticket !")
-        my_ticket_to_won.append(elem)
-    else: 
-        print("Try again")
-if len(my_ticket_to_won) == len(my_ticket):
-    print(f"You won! Your ticket is {my_ticket_to_won}")
+my_ticket = random.sample(win_ticket_series, 4)
+
+attempts = 0
+while True:
+    attempts += 1
+    drawn_ticket = random.sample(win_ticket_series, 4)
+    if set(drawn_ticket) == set(winning_combination):
+        break
+
+print(f"My ticket: {my_ticket}")
+print(f"It took {attempts} loop to give me a winning ticket.")
