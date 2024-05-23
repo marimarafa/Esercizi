@@ -1,5 +1,5 @@
 from zoo import Animal, Fence, ZooKeeper, Zoo
-
+#per testare il codice nel file zoo.py
 score = 0
 
 def feed_animal(keeper, animal):
@@ -185,4 +185,5 @@ except Exception as e:
     print("Error: ", e)"""
 run_tests()
 print(f'Score = {score} / 245')
+
  
