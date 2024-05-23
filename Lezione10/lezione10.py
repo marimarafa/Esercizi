@@ -22,16 +22,21 @@ La vostra funzione deve ricevere questa informazione per ogni impiegato e determ
 def calcola_stipendio(ore_lavorate: int) -> float:
     if ore_lavorate <= 40:
         stipendio = ore_lavorate * 10 
-        return float(stipendio)
-    if ore_lavorate > 40:
-        stipendio = ore_lavorate * 15
-        return float(stipendio)
+    else:
+        ore_straordinarie = ore_lavorate - 40
+        stipendio = 40 * 10 + ore_straordinarie * 15
+    return float(stipendio)
 
 print(calcola_stipendio(40))
 print(calcola_stipendio(0))
 print(calcola_stipendio(60),"\n")
 
-
+"""Scrivere in Python dei cicli che stampino le seguenti sequenze di valori:
+a) 1, 2, 3, 4, 5, 6, 7
+b) 3, 8, 13, 18, 23
+c) 20, 14, 8, 2, -4, -10
+d) 19, 27, 35, 43, 51
+"""
 def print_seq(): 
     
     print("Sequenza a):")
@@ -61,10 +66,31 @@ def countdown(n: int) -> int:
         print(n)
         n -= 1
     return n
-print(countdown(5))
+print(countdown(5),"\n")
 
 """Scrivere una funzione chiamata integerPower che, dati in input una base e un esponente, restituisca il risultato della potenza base^exponent. 
 Supporre che base sia un numero intero e che l'esponente sia un valore intero positivo e diverso da 0.
 La funzione deve usare un ciclo come struttura di controllo per il calcolo del risultato.
 Non utilizzare nessuna funzione della libreria math!
 """
+def integerPower(base:int,esponente:int) -> int:
+    risultato = 1
+    for _ in range(esponente):
+        risultato *= base
+    return risultato
+
+print(integerPower(3, 4))
+print(integerPower(2, 5), "\n")
+
+"""Definire una funzione chiamata hypotenuse che calcoli la lunghezza dell'ipotenusa di un triangolo rettangolo. La funzione deve ricevere 
+due argomenti di tipo float (corrispondenti ai due lati del triangolo) e restituire l'ipotenusa come un float.
+Per calcolare l'ipotenusa, si può ricorrere al teorema di Pitagora
+"""
+def hypotenuse(lenght:float,widht:float)->float:
+    # c=√(a2+b2)
+    len_hypotenuse =((lenght **2) + (widht **2)) ** 0.5
+    return len_hypotenuse
+print(hypotenuse(3.0,4.0),"\n")
+
+    
+    

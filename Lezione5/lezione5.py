@@ -132,15 +132,9 @@ print("\n")
 """
 def rotate_left(elements: list, k: int) -> list:
     lista = []
-    for i in range (k):
-        if k < len(elements):
+    for i in range (k % len(elements)):
             elements.pop(0)
-            elements.append( i +1)
-        else:
-            k = k * 0.5
-            print(k)
-            elements.pop(0)
-            elements.append(i +1)
+            elements.append( i +1 )
     return elements
 
 print(rotate_left([1, 2, 3, 4, 5], 2))
