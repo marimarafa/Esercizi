@@ -45,16 +45,16 @@ def position():
     for i in position:
         if i == turtle_position1:
             print("T")
-        elif i == lepre_position1:
-            print("H")
-        print(position)
         if turtle_position1 == lepre_position1:
             print("OUCH!!!")
+        if i == lepre_position1:
+            print("H")
+        print(position)
         if turtle_position1 == 70:
             print("TORTOISE WINS! || VAY!!!")
-        elif lepre_position1 == 70:
+        if lepre_position1 == 70:
             print("HARE WINS || YUCH!!!")
-        elif lepre_position1 == 70 and turtle_position1 == 70:
+        if lepre_position1 == 70 and turtle_position1 == 70:
             print("IT'S A TIE.")
 
 def turtle_position(turtle_position):
