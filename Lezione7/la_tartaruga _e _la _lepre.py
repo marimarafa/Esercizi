@@ -31,7 +31,6 @@
 #     - una funzione per calcolare la mossa della lepre.
 # - Implementare un loop per simulare i tick dell'orologio. Ad ogni tick, calcolare le mosse, mostrare la posizione sulla corsia di gara, e determinare l'eventuale fine della gara.
 
-
 import random
 
 
