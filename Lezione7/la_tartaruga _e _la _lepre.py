@@ -34,71 +34,71 @@
 import random
 
 
-print("'BANG !!!!! AND THEY'RE OFF !!!!!'")
-turtle_position1 = 1
-lepre_position1 = 1
-
-def position():
-    position = ["_"] * 70
-    turtle_position(turtle_position1)
-    lepre_position(lepre_position1)
-    for i in position:
-        if i == turtle_position1:
-            print("T")
-        if turtle_position1 == lepre_position1:
-            print("OUCH!!!")
-        if i == lepre_position1:
-            print("H")
+def position(turtle_move,hare_move):
+    print("'BANG !!!!! AND THEY'RE OFF !!!!!'")
+    position = ["-"] * 70
+    turtle_position(turtle_move)
+    hare_position(hare_move)
+    for i in len(position):
+        if i == turtle_move:
+            i = "T"
+        elif i == hare_move:
+            i = "H"
         print(position)
-        if turtle_position1 == 70:
-            print("TORTOISE WINS! || VAY!!!")
-        if lepre_position1 == 70:
-            print("HARE WINS || YUCH!!!")
-        if lepre_position1 == 70 and turtle_position1 == 70:
-            print("IT'S A TIE.")
+    if turtle_move == hare_move:
+        i =("OUCH!!!")
+    if turtle_move == 70:
+        print("TORTOISE WINS! || VAY!!!")
+    if hare_move == 70:
+        print("HARE WINS || YUCH!!!")
+    if hare_move == 70 and turtle_move == 70:
+        print("IT'S A TIE.")
 
-def turtle_position(turtle_position):
-    print("La tartarugha ha fatto una :")
-    for i in range(random.randint(1,10 +1)):
-        if 1 <= i <= 5:
-            print("Passo veloce!")
-            turtle_position  += 3
-        elif 6 <= i <= 7:
-            print("Scivolata!")
-            turtle_position -= 6
-            if i < 0:
-                turtle_position == position[0]
-        elif 8 <= i <= 10:
-            print("Passo lento!")
-            turtle_position += 1
-    return turtle_position
+def turtle_position(turtle_pos):
+    print("La tartaruga:\n")
+    i =(random.randint(1,10))
+    if 1 <= i <= 5:
+        print("Passo veloce!")
+        turtle_pos  += 3
+    elif 6 <= i <= 7:
+        print("Scivolata!")
+        turtle_pos -= 6
+        if turtle_pos < 0:
+            turtle_pos == 0
+    elif 8 <= i <= 10:
+        print("Passo lento!")
+        turtle_pos += 1
+    return turtle_pos
 
-def lepre_position(lepre_position):
-    print("La lepre ha fatto una :")
-    for i in range(random.randint(1,10 +1)):
-        if 1 <= i <= 2:
-            print("Riposo!")
-            lepre_position == 0
-        elif 3 <= i <= 4 :
-            print("Grande balzo!")
-            lepre_position += 9
-        elif i <= 5:
-            print("Grande scivolata!")
-            lepre_position -= 12
-            if i < 0:
-                lepre_position == position[0]
-        elif 6 <= i <= 8:
-            print("Piccolo balzo!")
-            lepre_position += 1
-        elif 9 <= i <= 10:
-            print("Piccola scivolata!")
-            lepre_position -= 2
-            if i < 0:
-                lepre_position == position[0]
-    return lepre_position
+def hare_position(hare_pos):
+    print("La lepre:\n")
+    i = (random.randint(1,10))
+    if 1 <= i <= 2:
+        print("Riposo!")
+        hare_pos == 0
+    elif 3 <= i <= 4 :
+        print("Grande balzo!")
+        hare_pos += 9
+    elif i <= 5:
+        print("Grande scivolata!")
+        hare_pos -= 12
+        if hare_pos< 0:
+            hare_pos == 0
+    elif 6 <= i <= 8:
+        print("Piccolo balzo!")
+        hare_pos += 1
+    elif 9 <= i <= 10:
+        print("Piccola scivolata!")
+        hare_pos -= 2
+        if hare_pos < 0:
+            hare_pos == 0
+    return hare_pos
 
 
-position()
+turtle_position1 = 1
+hare_position1 = 1
+
+position(turtle_position1,hare_position1)
 
 
 
