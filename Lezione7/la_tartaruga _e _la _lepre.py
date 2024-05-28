@@ -30,84 +30,109 @@
 #     - una funzione per calcolare la mossa della tartaruga,
 #     - una funzione per calcolare la mossa della lepre.
 # - Implementare un loop per simulare i tick dell'orologio. Ad ogni tick, calcolare le mosse, mostrare la posizione sulla corsia di gara, e determinare l'eventuale fine della gara.
+# SFIDE AGGIUNTIVE:
+# 1. Variabilità Ambientale:
+# Introdurre fattori ambientali che possono influenzare la corsa, come il meteo.
+# Ad esempio, la pioggia può ridurre la velocità di avanzamento o aumentare la probabilità di scivolate per entrambi i concorrenti. Implementare un sistema dove le condizioni 'soleggiato' e 'pioggia' cambiano dinamicamente ogni 10 tick dell'orologio.
+
+# Modificatori mossa:
+# - La Tartaruga in caso di pioggia subisce penalità -1 su ogni mossa. In caso di sole non subisce variazioni.
+# - La Lepre in caso di pioggia subisca una penalità -2 su ogni mossa. In caso di sole non subisce variazioni.
 
 import random
 
-
-def position(turtle_move,hare_move):
+def position(turtle_pos, hare_pos,meteo):
     print("'BANG !!!!! AND THEY'RE OFF !!!!!'")
-    position = ["-"] * 70
-    turtle_position(turtle_move)
-    hare_position(hare_move)
-    for i in len(position):
-        if i == turtle_move:
-            i = "T"
-        elif i == hare_move:
-            i = "H"
-        print(position)
-    if turtle_move == hare_move:
-        i =("OUCH!!!")
-    if turtle_move == 70:
-        print("TORTOISE WINS! || VAY!!!")
-    if hare_move == 70:
-        print("HARE WINS || YUCH!!!")
-    if hare_move == 70 and turtle_move == 70:
-        print("IT'S A TIE.")
+    while turtle_pos < 70 and hare_pos < 70:
+        #     if  == 10:
+        #         if meteo == "soleggiato":
+        #             meteo == "pioggia"
+        #         else:
+        #             meteo == "soleggiato"
+        # print(f'weather changed to {meteo}')
+        turtle_pos = turtle_position(turtle_pos,meteo)
+        hare_pos = hare_position(hare_pos,meteo)
+        positions = ['_'] * 70
+        if turtle_pos == hare_pos:
+            positions[turtle_pos - 1] = 'OUCH!!!'
+        else:
+            positions[turtle_pos - 1] = 'T'
+            positions[hare_pos - 1] = 'H'
+        print(''.join(positions))
 
-def turtle_position(turtle_pos):
+        if turtle_pos == 70 and hare_pos == 70:
+            print("IT'S A TIE.")
+            break
+        elif turtle_pos == 70:
+            print("TORTOISE WINS! || VAY!!!")
+            break
+        elif hare_pos == 70:
+            print("HARE WINS || YUCH!!!")
+            break
+
+def turtle_position(turtle_move,meteo):
     print("La tartaruga:\n")
     i =(random.randint(1,10))
     if 1 <= i <= 5:
         print("Passo veloce!")
-        turtle_pos  += 3
+        turtle_move  += 3
     elif 6 <= i <= 7:
         print("Scivolata!")
-        turtle_pos -= 6
-        if turtle_pos < 0:
-            turtle_pos == 0
+        turtle_move -= 6
+        if turtle_move < 0:
+            turtle_move == 0
     elif 8 <= i <= 10:
         print("Passo lento!")
-        turtle_pos += 1
-    return turtle_pos
+        turtle_move += 1
+    if meteo == "pioggia":
+        turtle_move -= 1
+    if turtle_move > 70:
+        turtle_move = 70
+    return turtle_move
 
-def hare_position(hare_pos):
+def hare_position(hare_move,meteo):
     print("La lepre:\n")
     i = (random.randint(1,10))
     if 1 <= i <= 2:
         print("Riposo!")
-        hare_pos == 0
+        hare_move == 0
     elif 3 <= i <= 4 :
         print("Grande balzo!")
-        hare_pos += 9
+        hare_move += 9
     elif i <= 5:
         print("Grande scivolata!")
-        hare_pos -= 12
-        if hare_pos< 0:
-            hare_pos == 0
+        hare_move -= 12
+        if hare_move< 0:
+            hare_move == 0
     elif 6 <= i <= 8:
         print("Piccolo balzo!")
-        hare_pos += 1
+        hare_move += 1
     elif 9 <= i <= 10:
         print("Piccola scivolata!")
-        hare_pos -= 2
-        if hare_pos < 0:
-            hare_pos == 0
-    return hare_pos
+        hare_move -= 2
+        if hare_move < 0:
+            hare_move == 0
+    if meteo == "pioggia":
+        hare_move -= 2
+        if hare_move > 70:
+            hare_move = 70
+    return hare_move
 
 
 turtle_position1 = 1
 hare_position1 = 1
+meteo = "soleggiato"
 
-position(turtle_position1,hare_position1)
-
-
-
+position(turtle_position1,hare_position1,meteo)
 
 
 
 
 
-        
+
+
+
+
 
 
 
