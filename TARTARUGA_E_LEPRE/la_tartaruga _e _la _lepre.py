@@ -40,23 +40,25 @@
 # - La Lepre in caso di pioggia subisca una penalità -2 su ogni mossa. In caso di sole non subisce variazioni.
 import random
 
-def position(turtle_pos, hare_pos,meteo):
+def position(turtle_pos, hare_pos,meteo,tick):
     print("'BANG !!!!! AND THEY'RE OFF !!!!!'")
     while turtle_pos < 70 and hare_pos < 70:
-        #     if  == 10:
-        #         if meteo == "soleggiato":
-        #             meteo == "pioggia"
-        #         else:
-        #             meteo == "soleggiato"
-        # print(f'weather changed to {meteo}')
         turtle_pos = turtle_position(turtle_pos,meteo)
         hare_pos = hare_position(hare_pos,meteo)
+        tick += 1
+        if tick % 10 == 0:
+            if meteo == "soleggiato":
+                meteo == "pioggia"
+            else:
+                meteo == "soleggiato"
+            print(f'weather changed to {meteo}')
         positions = ['-'] * 70
         if turtle_pos == hare_pos:
             positions[turtle_pos - 1] = 'OUCH!!!'
         else:
-            positions[turtle_pos - 1] = 'T'
-            positions[hare_pos - 1] = 'H'
+                positions[turtle_pos - 1] = 'T'
+                positions[hare_pos - 1] = 'H'
+                
         print(''.join(positions))
 
         if turtle_pos == 70 and hare_pos == 70:
@@ -113,16 +115,17 @@ def hare_position(hare_move,meteo):
             hare_move == 0
     if meteo == "pioggia":
         hare_move -= 2
-        if hare_move > 70:
-            hare_move = 70
+    if hare_move > 70:
+        hare_move = 70
     return hare_move
 
 
 turtle_position1 = 1
 hare_position1 = 1
+tick = 0
 meteo = "soleggiato"
 
-position(turtle_position1,hare_position1,meteo)
+position(turtle_position1,hare_position1,meteo,tick)
 
 
 
