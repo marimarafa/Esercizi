@@ -38,7 +38,6 @@
 # Modificatori mossa:
 # - La Tartaruga in caso di pioggia subisce penalità -1 su ogni mossa. In caso di sole non subisce variazioni.
 # - La Lepre in caso di pioggia subisca una penalità -2 su ogni mossa. In caso di sole non subisce variazioni.
-
 import random
 
 def position(turtle_pos, hare_pos,meteo):
@@ -52,7 +51,7 @@ def position(turtle_pos, hare_pos,meteo):
         # print(f'weather changed to {meteo}')
         turtle_pos = turtle_position(turtle_pos,meteo)
         hare_pos = hare_position(hare_pos,meteo)
-        positions = ['_'] * 70
+        positions = ['-'] * 70
         if turtle_pos == hare_pos:
             positions[turtle_pos - 1] = 'OUCH!!!'
         else:
