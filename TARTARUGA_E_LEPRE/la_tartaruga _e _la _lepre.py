@@ -84,25 +84,29 @@ def position(turtle_pos, hare_pos,meteo):
                 
         print(''.join(positions))
 
-        for keys,values in ostacoli.items():
-                if keys  :
-                    turtle_pos -= values
-                    if turtle_pos > 1 or hare_pos > 1:
-                        turtle_pos == 1
-                        hare_pos == 1
-                    print(f"Ostacoli rallentano la tartaruga alla posizione {turtle_pos}")
-                    hare_pos -= values
-                    print(f"Ostacoli rallentano la lepre alla posizione {hare_pos}")
+        if turtle_pos in ostacoli:
+            turtle_pos -= ostacoli[turtle_pos]
+            if turtle_pos < 1:
+                turtle_pos = 1
+            print(f"Ostacoli rallentano la tartaruga alla posizione {turtle_pos}")
 
-        for keys,values in bonus.items():
-            if keys :
-                turtle_pos -= values
-                if turtle_pos > 1 or hare_pos > 1:
-                    turtle_pos == 1
-                    hare_pos == 1
-                print(f"Bonus velocizzano la tartaruga alla posizione {turtle_pos}")
-                hare_pos -= values
-                print(f"Bonus velocizzano la lepre alla posizione {hare_pos}")
+        if hare_pos in ostacoli:
+            hare_pos -= ostacoli[hare_pos]
+            if hare_pos < 1:
+                hare_pos = 1
+            print(f"Ostacoli rallentano la lepre alla posizione {hare_pos}")
+
+        if turtle_pos in bonus:
+            turtle_pos += bonus[turtle_pos]
+            if turtle_pos > 70:
+                turtle_pos = 70
+            print(f"Bonus velocizzano la tartaruga alla posizione {turtle_pos}")
+
+        if hare_pos in bonus:
+            hare_pos += bonus[hare_pos]
+            if hare_pos > 70:
+                hare_pos = 70
+            print(f"Bonus velocizzano la lepre alla posizione {hare_pos}")
 
 
         if turtle_pos == 70 and hare_pos == 70:

@@ -1,9 +1,11 @@
+
 from building import Building
-from room import Room
-from course.course_ab import Course
-from people.student import Student
+from course.python import Course
 from group import Group
-           
+from people.student import Student
+from room import Room
+
+
 smi = Building(name="SMI", address="Via Sierra Nevada 60", floors=[-2,3])
 armellini = Building(name="ITIS", address="Basilica San Paolo", floors=[0,4])
 
