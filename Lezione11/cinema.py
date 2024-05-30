@@ -79,16 +79,4 @@ print("Posti disponibili:", sala2.posti_disponibili())
 print(cinema.prenota_film("Spiderman", 3))  
 print(cinema.prenota_film("Peter Pan", 5))  
 print(cinema.prenota_film("Spiderman", 500))  
-print(cinema.prenota_film("Beaty and the beast", 5))  
-
-    
-
-        
-
-
-
-
-        
-        
-        
-
+print(cinema.prenota_film("Beaty and the beast", 5)) 
