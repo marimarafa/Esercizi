@@ -45,11 +45,23 @@
 #     - Grande scivolata (10% di probabilità): arretra di 12 quadrati e richiede 20 di energia. Non può andare sotto il quadrato 1.
 #     - Piccolo balzo (30% di probabilità): avanza di 1 quadrato e richiede 5 di energia.
 #     - Piccola scivolata (20% di probabilità): arretra di 2 quadrati e richiede 8 di energia. Non può andare sotto il quadrato 1.
+# 3. Ostacoli e Bonus
+# Sulla pista di gara sono presenti alcuni ostacoli e bonus a posizioni fisse, che influenzano direttamente il movimento degli animali quando vengono calpestati. Gli ostacoli causano uno slittamento all'indietro, mentre i bonus offrono un avanzamento extra.
+
+# Dettagli Implementativi:
+# - Ostacoli:
+# Posizionati a intervalli regolari sulla pista (es. ai quadrati 15, 30, 45), gli ostacoli riducono la posizione dell'animale di un numero specificato di quadrati (es: -3, -5, -7). Gli ostacoli sono rappresentati da un dizionario che mappa le posizioni degli ostacoli sul percorso (chiave) ed i relativi effetti (valore). Assicurarsi che nessun animale retroceda al di sotto del primo quadrato a seguito di un ostacolo.
+
+# - Bonus:
+# Dislocati strategicamente lungo la corsa (es. ai quadrati 10, 25, 50), i bonus aumentano la posizione dell'animale di un numero determinato di quadrati (es: 5, 3, 10). I bonus sono rappresentati da un dizionario che mappa le posizioni dei bonus sul percorso (chiave) ed i relativi effetti (valore). Consentire agli animali di beneficiare pienamente dei bonus, ma non oltrepassare il traguardo.
+
 
 import random
 
 def position(turtle_pos, hare_pos,meteo):
     print("'BANG !!!!! AND THEY'RE OFF !!!!!'")
+    ostacoli = {15 : 3,30 : 5 ,45 : 7}
+    bonus = {10 : 5,25 : 3 ,50 : 10}
     tick = 0
     turtle_energy = 100
     hare_energy = 100
@@ -72,6 +84,27 @@ def position(turtle_pos, hare_pos,meteo):
                 
         print(''.join(positions))
 
+        for keys,values in ostacoli.items():
+                if keys  :
+                    turtle_pos -= values
+                    if turtle_pos > 1 or hare_pos > 1:
+                        turtle_pos == 1
+                        hare_pos == 1
+                    print(f"Ostacoli rallentano la tartaruga alla posizione {turtle_pos}")
+                    hare_pos -= values
+                    print(f"Ostacoli rallentano la lepre alla posizione {hare_pos}")
+
+        for keys,values in bonus.items():
+            if keys :
+                turtle_pos -= values
+                if turtle_pos > 1 or hare_pos > 1:
+                    turtle_pos == 1
+                    hare_pos == 1
+                print(f"Bonus velocizzano la tartaruga alla posizione {turtle_pos}")
+                hare_pos -= values
+                print(f"Bonus velocizzano la lepre alla posizione {hare_pos}")
+
+
         if turtle_pos == 70 and hare_pos == 70:
             print("IT'S A TIE.")
             break
@@ -81,6 +114,7 @@ def position(turtle_pos, hare_pos,meteo):
         elif hare_pos == 70:
             print("HARE WINS || YUCH!!!")
             break
+            
 
 def turtle_position(turtle_move, turtle_energy, meteo):
     print("La tartaruga:\n")
@@ -91,7 +125,7 @@ def turtle_position(turtle_move, turtle_energy, meteo):
             turtle_move += 3
             turtle_energy -= 5
         else:
-            print("Non abbastanza energia per Passo veloce.")
+            print("Non abbastanza energia per passo veloce.")
             turtle_energy += 10
     elif 6 <= i <= 7:
         if turtle_energy >= 10:
@@ -101,7 +135,7 @@ def turtle_position(turtle_move, turtle_energy, meteo):
             if turtle_move < 1:
                 turtle_move = 1
         else:
-            print("Non abbastanza energia per Scivolata.")
+            print("Non abbastanza energia per scivolata.")
             turtle_energy += 10
     else:
         if turtle_energy >= 3:
@@ -109,19 +143,17 @@ def turtle_position(turtle_move, turtle_energy, meteo):
             turtle_move += 1
             turtle_energy -= 3
         else:
-            print("Non abbastanza energia per Passo lento.")
+            print("Non abbastanza energia per passo lento.")
             turtle_energy += 10
-
     if meteo == "pioggia":
         turtle_move -= 1
-
     if turtle_move < 1:
         turtle_move = 1
     if turtle_move > 70:
         turtle_move = 70
-
     print(f'Energia della tartaruga: {turtle_energy}')
     return turtle_move, turtle_energy
+
 
 def hare_position(hare_move, hare_energy, meteo):
     print("La lepre:\n")
@@ -159,8 +191,8 @@ def hare_position(hare_move, hare_energy, meteo):
             print("Piccola scivolata!")
             hare_move -= 2
             hare_energy -= 8
-            if hare_move < 1:
-                hare_move = 1
+        if hare_move < 1:
+            hare_move = 1
         else:
             print("Non abbastanza energia per piccola scivolata.")
     if meteo == "pioggia":
@@ -169,9 +201,9 @@ def hare_position(hare_move, hare_energy, meteo):
         hare_move = 1
     if hare_move > 70:
         hare_move = 70
-
     print(f'Energia della lepre: {hare_energy}')
     return hare_move, hare_energy
+
 
 
 turtle_position1 = 1
