@@ -24,70 +24,62 @@
 #     Il sistema verifica la disponibilità e conferma o rifiuta la prenotazione.
 
 class Film:
-    def __init__(self,
-                 titolo:str,
-                 durata :float) -> None:
-        
+    def __init__(self, titolo: str, durata: float) -> None:
         self.titolo = titolo
         self.durata = durata
 
 class Sala:
-    def __init__(self,
-                 numero_id :int,
-                 film :Film,
-                 tot_posti : int,
-                 posti_prenotati :int ) -> None:
+    def __init__(self, numero_id: int, film: Film, tot_posti: int) -> None:
         self.numero_id = numero_id
         self.film = film
         self.tot_posti = tot_posti
-        self.posti_prenotati = posti_prenotati
-    
-    def prenota_posti(self,num_posti:int):
-        self.posti_prenotati = num_posti
-        if num_posti < self.posti_disponibili():
+        self.posti_prenotati = 0
+
+    def prenota_posti(self, num_posti: int) -> str:
+        if num_posti <= self.posti_disponibili():
+            self.posti_prenotati += num_posti
             return 'Posti prenotati con successo'
         else:
-            return 'Errore, posti non disponibili' 
+            return 'Errore, posti non disponibili'
 
     def posti_disponibili(self) -> int:
-        posti_disponibili :int = self.tot_posti - self.posti_prenotati
+        return self.tot_posti - self.posti_prenotati
 
-        return posti_disponibili 
-    
 class Cinema:
     def __init__(self) -> None:
         self.sale = []
-    
-    def aggiungi_sala(self,sala:Sala):
-        if sala not in self.sale:
-            self.sale.append(sala)
+
+    def aggiungi_sala(self, sala: Sala) -> None:
+        self.sale.append(sala)
         return self.sale
-    
-    def prenota_film(self,titolo_film:str,num_posti:int):
+
+    def prenota_film(self, titolo_film: str, num_posti: int) -> str:
         for sala in self.sale:
-            if titolo_film == sala.film.titolo and sala.posti_disponibili():
-                return f'{num_posti} prenotati per il film {titolo_film}'
-            if num_posti > sala.posti_disponibili():
-                return f'Posti non disponibili per il film {titolo_film}'
-            elif titolo_film != sala.film.titolo:
-                return f'Film non disponibile'
-            
-        
-film1 = Film(titolo="Spiderman",durata= 1.50)
-film2 = Film(titolo="Peter pan",durata=2.0)
-sala1 = Sala(numero_id= 134,film= film1,tot_posti= 40,posti_prenotati= 0)
-sala2 = Sala(numero_id= 124,film= film2,tot_posti= 50,posti_prenotati= 0)
+            if sala.film.titolo == titolo_film:
+                if num_posti <= sala.posti_disponibili():
+                    sala.prenota_posti(num_posti)
+                    return f'{num_posti} posti prenotati per il film {titolo_film}'
+                else:
+                    return f'Posti non disponibili per il film {titolo_film}'
+        return f'Film non disponibile'
+
+
+film1 = Film(titolo="Spiderman", durata=1.50)
+film2 = Film(titolo="Peter Pan", durata=2.0)
+sala1 = Sala(numero_id=134, film=film1, tot_posti=40)
+sala2 = Sala(numero_id=124, film=film2, tot_posti=50)
 cinema = Cinema()
-print(sala1.prenota_posti(5))
-print(sala1.prenota_posti(50))
-print(sala2.prenota_posti(10))
-print("Posti disponibili : " ,sala1.posti_disponibili())
-print("Posti disponibili : " ,sala2.posti_disponibili())
-print(cinema.aggiungi_sala(sala1))
-print(cinema.aggiungi_sala(sala2))
-print(cinema.prenota_film("Spiderman",3))
-print(cinema.prenota_film("Peter pan",5))
-print(cinema.prenota_film("Spiderman",500))
+cinema.aggiungi_sala(sala1)
+cinema.aggiungi_sala(sala2)
+print(sala1.prenota_posti(5))  
+print(sala1.prenota_posti(50))  
+print(sala2.prenota_posti(10))  
+print("Posti disponibili:", sala1.posti_disponibili())  
+print("Posti disponibili:", sala2.posti_disponibili())  
+print(cinema.prenota_film("Spiderman", 3))  
+print(cinema.prenota_film("Peter Pan", 5))  
+print(cinema.prenota_film("Spiderman", 500))  
+print(cinema.prenota_film("Beaty and the beast", 5))  
 
     
 
