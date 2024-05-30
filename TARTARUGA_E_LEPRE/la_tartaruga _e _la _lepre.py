@@ -215,16 +215,3 @@ hare_position1 = 1
 meteo = "soleggiato"
 
 position(turtle_position1,hare_position1,meteo)
-
-
-
-
-
-
-
-
-
-
-
-
-
