@@ -1,4 +1,4 @@
-from person import Person
+from .person import Person
 class Student(Person):
     
     def __init__(self, cf: str, name: str, surname: str, age: int):

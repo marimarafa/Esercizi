@@ -18,5 +18,53 @@
 # - In qualsiasi momento, un utente può visualizzare quali libri sono disponibili per il prestito.
 
 class Libro:
+    def __init__(self,
+                 titolo :str,
+                 autore:str ) -> None:
+        self.titolo = titolo
+        self.autore = autore
+        self.stato_del_prestito = True
+    
+class Biblioteca:
     def __init__(self) -> None:
-        pass
+        self.libri = []
+
+    def aggiungi_libro(self,libro:Libro):
+        self.libri.append(libro)
+        return f'Libro {libro.titolo} aggiunto alla biblioteca'
+    
+    def presti_libro(self,titolo:str):
+        for libro in self.libri:
+            if libro.titolo == titolo:
+                if libro.stato_del_prestito:
+                    return f'Libro {libro.titolo} disponibile,puo essere prestato'
+                libro.stato_del_prestito = False
+        return 'Libro non disponibile'
+    
+    def restituisci_libro(self,titolo:str):
+        for libro in self.libri:
+            if libro.titolo == titolo:
+                if libro.stato_del_prestito == False:
+                    libro.stato_del_prestito == True
+                return f'libro {titolo} restituito'
+        return 'Libro non prestato'
+    
+    def mostra_libri(self):
+        for libro in self.libri:
+            if libro.stato_del_prestito:
+                return f'Libri disponibili : {libro.titolo}'
+        else:
+            return 'Nessun libro disponibile'
+        
+libro1 = Libro(titolo= "La caccia al tesoro",autore="Giuseppe Rossi")
+libro2 = Libro(titolo="Python",autore="Giorgio Rossi")
+biblioteca = Biblioteca()
+print(biblioteca.aggiungi_libro(libro1))
+print(biblioteca.aggiungi_libro(libro2))
+print(biblioteca.presti_libro("La caccia al tesoro"))
+print(biblioteca.presti_libro("NNNjcocw"))
+print(biblioteca.presti_libro("Python"))
+print(biblioteca.restituisci_libro("Python"))
+print(biblioteca.restituisci_libro("La caccia al tesoro"))
+print(biblioteca.restituisci_libro("Pythonssskml"))
+print(biblioteca.mostra_libri())
