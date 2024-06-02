@@ -9,7 +9,7 @@ class TestCalculations(unittest.TestCase):
     def test_sum(self):
         self.assertEqual(self.calculation.get_sum(),10,'The sum is wrong.')
 
-    def test_sum(self):
+    def test_sum1(self):
         self.assertEqual(self.calculation.get_sum(),7,'The sum is wrong.')
 
     
@@ -17,3 +17,5 @@ class TestCalculations(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+#sul terminale : python3 -m unittest -v
