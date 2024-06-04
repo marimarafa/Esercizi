@@ -52,7 +52,7 @@ class Biblioteca:
     def mostra_libri(self):
         for libro in self.libri:
             if libro.stato_del_prestito:
-                return f'Libri disponibili : {libro.titolo}'
+                return f'Libri disponibili : {self.libri}'
         else:
             return 'Nessun libro disponibile'
         

@@ -2,6 +2,7 @@ from typing import Any
 
 
 class ContoBancario():
+    
     total_accounts = 0
     def __init__(self,iban,saldo,nome) :
         self.iban = iban

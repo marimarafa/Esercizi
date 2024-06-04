@@ -18,10 +18,42 @@
 
 class MovieCatalog:
     def __init__(self):
-        self.movie_catalog = []
+        self.catalog = {}
 
-    # def add_movie(director_movie,movies):
-    #     if director_movie:
-    #         self.movie_catalog.append(movies)
-            
+    def add_movie(self,director_name,movies):
+        if director_name not in self.catalog:
+            self.catalog[director_name] = []
+            self.catalog[director_name].append(movies)
+        
+    def remove_movie(self, director_name, movie_name):
+        if director_name in self.catalog:
+            if movie_name in self.catalog[director_name]:
+                self.catalog[director_name].remove(movie_name)
+                if not self.catalog[director_name]:
+                    del self.catalog[director_name]
+                    
+
+    def list_directors(self):
+        # for directors in self.catalog:
+        #     print(directors)
+        return f'Registi nel catalogo: {list(self.catalog.keys())}'
+    
+    def get_movies_by_director(self,director_name):
+        return (f'"Film di {director_name}:", {self.catalog[director_name]} ')
+    
+    def search_movies_by_title(self,title):
+        pass
+                
+
+
+
+catalog = MovieCatalog()
+print(catalog.add_movie("Christopher Nolan", ["Inception", "Interstellar", "Dunkirk"]))
+print(catalog.add_movie("Quentin Tarantino", ["Pulp Fiction", "Kill Bill", "Django Unchained"]))
+print(catalog.remove_movie("Quentin Tarantino", "Kill Bill"))
+print(catalog.list_directors())
+print(catalog.get_movies_by_director("Quentin Tarantino"))
+# print(catalog.search_movies_by_title("Inception"))
+# print(catalog.search_movies_by_title("Matrix"))
+                    
         
