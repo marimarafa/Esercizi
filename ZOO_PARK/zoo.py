@@ -89,21 +89,23 @@ class ZooKeeper:
             return(f'Animal removed correctly! Area of the fence is now updated to : {round(fence.area,3)}')
 
     def feed(self, animal,fence):
+            animal.health *= 1.01
+            animal.height *= 1.02
+            animal.width *= 1.027
             if fence.area > animal.height * animal.width:
-                animal.health *= 1.01
-                animal.height *= 1.02
-                animal.width *= 1.02
-            return(f"Fed {animal.name} , animal height:{round(animal.height,3)},animal health: {round(animal.health,3)}, animal width: {round(animal.width,3)}")
+                return(f"Fed {animal.name} , animal height:{round(animal.height,3)},animal health: {round(animal.health,3)}, animal width: {round(animal.width,3)}")
+            else:
+                return (f'The animal could not be feeded.')
 
  
     def clean(self, fence) -> float:
         for animal in fence.animals:
             occupied_area = animal.height * animal.width
             remaining_area = fence.area - occupied_area
-            if remaining_area <= 0 :
-                return f'The time spent cleaning the {fence.habitat} fence :{round(occupied_area,3)}'
+            if remaining_area <= 0:
+                return round(occupied_area,3)
             else:
-                return f'The time spent cleaning the {fence.habitat} fence :{round(occupied_area / remaining_area,3)}'
+                return round(occupied_area / remaining_area,3)
 
     def __str__(self):
         return f"ZooKeeper(name={self.name}, surname={self.surname}, id={self.id})"

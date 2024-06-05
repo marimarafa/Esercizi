@@ -25,6 +25,7 @@
 # Create a script and play a bit with the classes:
 # Create instances of books and members using class methods. Register members and add books to the library. Lend books to members and display the state of the library before and after lending.
 class Book:
+    total_books = 0
     def __init__(self,
                  title:str,
                  author:str,
@@ -32,13 +33,20 @@ class Book:
         self.title = title
         self.author = author
         self.isbn = isbn
+
+        Book.total_books += 1
     def __str__(self) -> str:
         return f'title : {self.title} , author : {self.author}, isbn : {self.isbn}'
     
     @classmethod
     def from_string(cls,book_str):
-        #return book_str.split(",")
-        pass
+        params: list = book_str.split(",")
+        return cls(params[0], params[1],params[2])
+
+    @classmethod
+    def library_statistics(cls):
+        print (f'Libri totali: {cls.total_books}')
+    
     
 class Member:
     def __init__(self,
@@ -59,16 +67,14 @@ class Member:
     
     @classmethod
     def from_string(cls,member_str):
-        pass
+        params: list = member_str.split(",")
+        return cls(params[0], params[1])
     
 class Library:
-    
-    total_books = 0
+
     def __init__(self) -> None:
         self.books = []
         self.members = []
-        
-        Library.total_books += 1
         
     def add_book(self,book):
         return self.books.append(book)
@@ -90,9 +96,6 @@ class Library:
     def __str__(self) -> str:
         return f'Lista libri : {self.books} ,\nLista membri : {self.members}'
     
-    @classmethod
-    def library_statistics(cls):
-        print (f'Libri totali: {cls.total_books}')
     
     
     
@@ -108,7 +111,7 @@ library.add_book(book1)
 library.add_book(book2)
 library.add_book(book3)
 
-(Library.library_statistics())
+(Book.library_statistics())
 
 library.register_member(member1)
 library.register_member(member2)
@@ -124,7 +127,7 @@ print(member2)
 
 library.add_book(book1)
 
-(Library.library_statistics())
+(Book.library_statistics())
 
 print(library)
 
