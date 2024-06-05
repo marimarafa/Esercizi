@@ -73,7 +73,9 @@ class Student(Person):
         self.courses = []
     
     def enrole(self,course):
-        pass
+        self.courses.append(course)
+        self.add_students(self.student_id)
+
         
 class Professor(Person):
     def __init__(self, name: str, age: int,professor_id :str,department:str) -> None:
@@ -82,25 +84,56 @@ class Professor(Person):
         self.department = department
         self.courses = []
         
-    def assign_to_course(self,course):
-        pass
+    def assign_to_course(self, course):
+        self.courses.append(course)
+        self.set_professor(self.professor_id)
+
     
 class Course:
     def __init__(self,course_name:str,course_code:str,professor:Professor) -> None:
         self.course_name = course_name
         self.course_code = course_code
-        self.prfessor = professor
+        self.professor = professor
         self.students = []
     
     def add_students(self,student):
         return self.students.append(student)
     
     def set_professor(self,professor):
-        pass
+        self.professor = professor
         
     def __str__(self) -> str:
         return f'course name :{self.course_name}, course code : {self.course_code}, professor : {self.prfessor}, students : {self.students}'
         
-            
-    
+class Department:
+    def __init__(self,
+                 department_name: str) -> None:
+        self.department_name = department_name
+        self.courses :list[Course]= []
+        self.professors :list[Professor]= []
 
+    def add_course(self, course: Course):
+        self.courses.append(course)
+
+    def add_professor(self, professor: Professor):
+        self.professors.append(professor)
+
+    def __str__(self) -> str:
+        return f'Department name :{self.department_name}, courses : {self.courses}, professors : {self.professors}'
+
+class University:
+    def __init__(self,
+                name: str) -> None:
+        self.name = name
+        self.departments :list[Department] = []
+        self.students :list[Student]= []
+
+    def add_department(self, department: Department):
+        self.departments.append(department)
+
+    def add_student(self, student: Student):
+        self.students.append(student)
+
+    def __str__(self) -> str:
+         return f'University name :{self.name}, departments : {self.departments}, students : {self.students}'
+     
