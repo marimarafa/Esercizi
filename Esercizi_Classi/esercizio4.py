@@ -54,9 +54,7 @@
 from abc import abstractmethod
 
 class Person:
-    def __init__(self,
-                 name:str,
-                 age :int) -> None:
+    def __init__(self,name:str,age :int) -> None:
         self.name = name
         self.age = age
     @abstractmethod  
@@ -122,8 +120,7 @@ class Department:
         return f'Department name :{self.department_name}, courses : {self.courses}, professors : {self.professors}'
 
 class University:
-    def __init__(self,
-                name: str) -> None:
+    def __init__(self,name: str) -> None:
         self.name = name
         self.departments :list[Department] = []
         self.students :list[Student]= []
@@ -136,4 +133,3 @@ class University:
 
     def __str__(self) -> str:
          return f'University name :{self.name}, departments : {self.departments}, students : {self.students}'
-     

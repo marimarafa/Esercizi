@@ -56,7 +56,7 @@ class Member:
         self.id = id
         self.borrowed_books = []
         
-    def borrow_book(self,book):
+    def borrow_book(self,book:Book):
         self.borrowed_books.append(book)
         
     def return_book(self,book):
