@@ -69,12 +69,15 @@ class Student(Person):
         super().__init__(name, age)
         self.student_id = student_id
         self.courses = []
-    
-    def enrole(self,course):
-        self.courses.append(course)
-        self.add_students(self.student_id)
-
         
+        
+    def get_role(self):
+        return "Student"
+        
+    def enroll(self,course):
+        self.courses.append(course)
+        course.add_students(self.name)
+
 class Professor(Person):
     def __init__(self, name: str, age: int,professor_id :str,department:str) -> None:
         super().__init__(name, age)
@@ -82,26 +85,29 @@ class Professor(Person):
         self.department = department
         self.courses = []
         
+    def get_role(self):
+        return "Professor"
+        
     def assign_to_course(self, course):
         self.courses.append(course)
-        self.set_professor(self.professor_id)
+        course.set_professor(self.name)
 
     
 class Course:
     def __init__(self,course_name:str,course_code:str,professor:Professor) -> None:
         self.course_name = course_name
         self.course_code = course_code
-        self.professor = professor
-        self.students = []
+        self.professor:Professor = professor
+        self.students :list[Student] = []
     
-    def add_students(self,student):
+    def add_students(self,student:Student):
         return self.students.append(student)
     
-    def set_professor(self,professor):
+    def set_professor(self,professor:Professor):
         self.professor = professor
         
     def __str__(self) -> str:
-        return f'course name :{self.course_name}, course code : {self.course_code}, professor : {self.prfessor}, students : {self.students}'
+        return f'course name :{self.course_name}, course code : {self.course_code}, professor : {self.professor}, students : {self.students}'
         
 class Department:
     def __init__(self,
@@ -133,3 +139,50 @@ class University:
 
     def __str__(self) -> str:
          return f'University name :{self.name}, departments : {self.departments}, students : {self.students}'
+     
+     
+     
+cs_department = Department("Computer Science")
+math_department = Department("Mathematics")
+
+prof1 = Professor("Dr. Alice", 45, "P001", "Computer Science")
+prof2 = Professor("Dr. Bob", 50, "P002", "Mathematics")
+prof3 = Professor("Dr. Lorenzo", 44, "P003", "Python")
+
+student1 = Student("John Doe", 20, "S001")
+student2 = Student("Jane Smith", 22, "S002")
+
+course1 = Course("Algorithms", "CS101",prof1)
+course2 = Course("Data Structures", "CS102",prof2)
+course3 = Course("Calculus", "MATH101",prof3)
+
+
+
+university = University("XYZ University")
+university.add_department(cs_department)
+university.add_department(math_department)
+university.add_student(student1)
+university.add_student(student2)
+
+cs_department.add_course(course1)
+cs_department.add_course(course2)
+math_department.add_course(course3)
+
+cs_department.add_professor(prof1)
+math_department.add_professor(prof2)
+math_department.add_professor(prof3)
+
+
+student1.enroll(course1)
+student2.enroll(course2)
+student1.enroll(course3)
+
+prof1.assign_to_course(course1)
+prof3.assign_to_course(course2)
+prof2.assign_to_course(course3)
+print(course1)
+print(course2)
+print(course3)
+print(cs_department)
+print(math_department)
+print(university)
