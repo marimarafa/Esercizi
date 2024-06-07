@@ -42,18 +42,20 @@ class MovieCatalog:
         return (f'"Film di {director_name}:", {self.catalog[director_name]} ')
     
     def search_movies_by_title(self,title):
-        pass
+        for movie in self.catalog.values():
+            if title == movie:
+                return self.catalog.keys()
                 
 
 
 
 catalog = MovieCatalog()
-print(catalog.add_movie("Christopher Nolan", ["Inception", "Interstellar", "Dunkirk"]))
-print(catalog.add_movie("Quentin Tarantino", ["Pulp Fiction", "Kill Bill", "Django Unchained"]))
-print(catalog.remove_movie("Quentin Tarantino", "Kill Bill"))
+(catalog.add_movie("Christopher Nolan", ["Inception", "Interstellar", "Dunkirk"]))
+(catalog.add_movie("Quentin Tarantino", ["Pulp Fiction", "Kill Bill", "Django Unchained"]))
+(catalog.remove_movie("Quentin Tarantino", "Kill Bill"))
 print(catalog.list_directors())
 print(catalog.get_movies_by_director("Quentin Tarantino"))
-# print(catalog.search_movies_by_title("Inception"))
-# print(catalog.search_movies_by_title("Matrix"))
+print(catalog.search_movies_by_title("Inception"))
+print(catalog.search_movies_by_title("Matrix"))
                     
         
