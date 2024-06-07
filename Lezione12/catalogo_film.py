@@ -42,9 +42,22 @@ class MovieCatalog:
         return (f'"Film di {director_name}:", {self.catalog[director_name]} ')
     
     def search_movies_by_title(self,title):
-        for movie in self.catalog.values():
-            if title == movie:
-                return self.catalog.keys()
+        result = {}
+
+        for director, movies in self.catalog.items():
+            matching_movies = []
+            
+            for movie in movies:                   
+                if title in movie:
+                    matching_movies.append(movie)
+                    
+            if matching_movies:
+                    result[director] = matching_movies
+                    
+        if result:
+            return result
+        else:
+            return "Nessun film trovato"
                 
 
 
