@@ -46,26 +46,34 @@ class Media:
         return round(media,3)
     
     def get_rate(self):
-        percentuale_media :float = self.get_media()
-        if 1 > percentuale_media:
+        media = self.get_media()
+        if media < 1:
             return "Terribile"
-        if 2 > percentuale_media:
+        elif media < 2:
             return "Brutto"
-        if 3 > percentuale_media:
+        elif media < 3:
             return "Normale"
-        if 4 > percentuale_media:
+        elif media < 4:
             return "Bello"
-        if 5 > percentuale_media:
-             return "Grandioso"
+        elif media <= 5:
+            return "Grandioso"
         
     def rate_percentage(self,voto :float):
-            return  f'{voto *10 }%'
+        percentage = (voto / len(self.reviews)) * 100 
+        return f'{round(percentage,2)}%'
+
         
     def recensione(self):
         return f'Titolo del Film: {self.get_title()}\nVoto Medio: {self.get_media()}\nGiudizio: {self.get_rate()}\nTerribile: {self.rate_percentage(1.0)}\nBrutto: {self.rate_percentage(2.0)}\nNormale: {self.rate_percentage(3.0)}\nBello: {self.rate_percentage(4.0)}\nGrandioso: {self.rate_percentage(5.0)}'
         
-film1 :Media = Media(title= "The Shawshank Redemption",reviews=[2,3,4,5,3,2,1,3,4,2,3,5])
-print(film1.recensione())       
+class Film(Media):
+    def __init__(self, title: str, reviews: list[int] = None) -> None:
+        super().__init__(title, reviews)
+        self.title  = title
+        self.reviews = reviews
+        
+film1 :Film = Film(title= "The Shawshank Redemption",reviews=[2,3,4,5,3,2,1,3,4,2,3,5])
+print(film1.recensione())  
         
 
 
