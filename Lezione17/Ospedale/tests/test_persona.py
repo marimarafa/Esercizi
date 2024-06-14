@@ -21,21 +21,6 @@ class TestPersona(TestCase):
 
 
     
-
-
-
-
-
-
-
-    
-
-
-
-
-
-    
-    
     
 
 
