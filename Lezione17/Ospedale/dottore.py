@@ -13,7 +13,7 @@
 #     getParcel(): consente di ritornare la parcella del dottore.
 #     isAValidDoctor(): stabilisce se un dottore è un dottore valido; un dottore è valido se e solo se ha più di 30 anni, in quanto ha avuto il tempo necessario di compiere i suoi studi in medicina. Stampare "Doctor nome e cognome is valid!", se il dottore risulta valido. In caso contrario, stampare "Doctor nome e cognome is not valid!".
 #     doctorGreet():tale metodo richiama la funzione greet() della classe Persona. Poi, stampa il seguente saluto "Sono un medico {specializzazione}"
-from persona import Persona
+from .persona import Persona
 
 class Dottore(Persona):
     def __init__(self, first_name:str, last_name:str,specialization:str,parcel:float) -> None:
@@ -23,7 +23,7 @@ class Dottore(Persona):
 
         if type(self.__specialization) is not str:
             print("La specializzazione deve essere una stringa!")
-            self.s__pecialization = None
+            self.__specialization = None
         if type(self.__parcel) is not float:
             print("La parcella inserita deve essere un float!")
             self.__parcel = None
