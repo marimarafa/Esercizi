@@ -54,6 +54,37 @@ class TestDottore(TestCase):
         message2 = "Error, the attribute parcel should be a float"
         self.assertEqual(result2,True,message2)
         
+    def test_SetSpecialization(self):
+        dottore = Dottore(first_name="marco",last_name="rossi",specialization= "dentista",parcel=22.3)
+        dottore.setSpecialization("pediatria")
+        result = dottore.getSpecialization()
+        message = "Error. The attribute specialization should be pediatria"
+        self.assertEqual(result,"pediatria",message)
+    
+    def test_SetParcel(self):
+        dottore = Dottore(first_name="marco",last_name="rossi",specialization= "dentista",parcel=22.3)
+        dottore.setParcel(45.76)
+        result = dottore.getParcel()
+        message = "Error. The attribute parcel should be 45.76"
+        self.assertEqual(result,45.76,message)
+        
+    def test_IsAValidDoctor(self):
+        dottore1 = Dottore(first_name="marco",last_name="rossi",specialization= "dentista",parcel=22.3)
+        dottore1.setAge(20)
+        result = dottore1.isAValidDoctor()
+        message = "Error . The doctors age should be more then 30 "
+        self.assertEqual(result,False,message)
+        
+        dottore1.setAge(50)
+        result1 = dottore1.isAValidDoctor()
+        message1 = "Error . The doctors age should be more then 30 "
+        self.assertEqual(result1,True,message1)
+    
+        
+        
+        
+        
+        
 
 
 
