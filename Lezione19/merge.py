@@ -12,19 +12,23 @@ def mergeSort(input_list:list) -> list:
 
 def merge(list1:list[int],list2:list[int])->list[int]:
     i, j = 0,0
-
-    result :list[int] = [None for _ in range(len(list1 + list2))]
+    result :list[int] = [None for _ in range(len(list1 + list2)) ]
     #result = []
-    #aggiungere gli elementi con l append dalla lista1 e lista2 alla lista result
+    #aggiungere gli elementi con l'append alla lista result
     #result.append()
 
     for k in range(len(result)):
-        if list1[i] > list2[j]:
-            result[k] = list2[j]
-            j += 1
+        if len(list1) < 1 :
+            return result 
+        elif len(list2) < 1:
+            return result 
         else:
-            result[k] = list1[i]
-            i += 1
+            if list1[i] > list2[j]:
+                result[k] = list2[j]
+                j += 1
+            else:
+                result[k] = list1[i]
+                i += 1
     return result
 
 
@@ -34,4 +38,4 @@ if __name__ == "__main__":
 
     input_list:list[int] = [0,1,2,3,4,5,6,7]
 
-    mergeSort(input_list=input_list)
+    print(mergeSort(input_list))
