@@ -28,6 +28,6 @@ class Paziente(Persona):
     def patientInfo(self):
         print(f"Paziente: {self.getName()} {self.getLastName()} \nID: {self.getIdCode()}")
 
-# paziente = Paziente("mario","rossi","32355")
-# paziente.patientInfo()
+paziente = Paziente("mario","rossi","32355")
+paziente.patientInfo()
         

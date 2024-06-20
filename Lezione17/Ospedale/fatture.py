@@ -33,6 +33,9 @@ class Fattura:
     def getFatture(self):
         return self.__fatture
     
+    def getPatient(self):
+        return self.__patient
+    
     def addPatient(self,newPatient:Paziente):
         self.__patient.append(newPatient)
         self.getSalary()
@@ -47,15 +50,16 @@ class Fattura:
                 self.getFatture()
                 print(f"Alla lista del Dottor {self.__doctor.getLastName()} è stato rimosso il paziente {paziente.__id}")
 
-# doctor = Dottore("Mario","Rossi","dentista",12.5)
-# doctor.setAge(45)
-# paziente = Paziente("mario","rossi","VSEW55")
-# paziente1 = Paziente("marVEVZASEWo","rcesi","32rvr55")
-# paziente2 = Paziente("eassssssfgwe","recwei","EVCCV55vecsWE")
-# fattura = Fattura([paziente, paziente1, paziente2], doctor)
+doctor = Dottore("Mario","Rossi","dentista",12.5)
+doctor.setAge(45)
+paziente = Paziente("mario","rossi","VSEW55")
+paziente1 = Paziente("marVEVZASEWo","rcesi","32rvr55")
+paziente2 = Paziente("eassssssfgwe","recwei","EVCCV55vecsWE")
+fattura = Fattura([paziente, paziente1, paziente2], doctor)
 
-# print(fattura.getSalary())
-# print(fattura.getFatture())
+print(fattura.getSalary())
+print(fattura.getFatture())
+print(fattura.getPatient())
 
 
 
