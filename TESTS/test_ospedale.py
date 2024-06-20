@@ -82,16 +82,16 @@ class TestDottore(TestCase):
 
 from Lezione17.Ospedale.paziente import Paziente
 
-# class TestPaziente(TestCase):
-#     def SetUp(self):
-#         pass
+class TestPaziente(TestCase):
+    def SetUp(self):
+        pass
 
-#     def test_setCode(self):
-#         paziente = Paziente(first_name="carlo",last_name="rossi",id="345")
-#         paziente.patientInfo()
-#         result1 = paziente.patientInfo()
-#         message1 = "Error . The Patient info should be first_name,last_name,id "
-#         self.assertEqual(result1,True,message1)
+    def test_setCode(self):
+        paziente = Paziente(first_name="carlo",last_name="rossi",id="345")
+        paziente.patientInfo()
+        result1 = paziente.patientInfo()
+        message1 = "Error . The Patient info should be first_name,last_name,id "
+        self.assertEqual(result1,True,message1)
 
 from Lezione17.Ospedale.fatture import Fattura
 
@@ -118,6 +118,17 @@ class TestFatture(TestCase):
         result = fattura.getPatient()
         message = "Error. Should return a list of 3 patient"
         self.assertEqual(result,[paziente1,paziente2,paziente2],message)
+
+    def test_addPatient(self):
+        paziente1 = Paziente(first_name="carlo",last_name="rossi",id="345")
+        paziente2 = Paziente(first_name="luca",last_name="paolo",id="95")
+        paziente3 = Paziente(first_name="vewvw",last_name="cer",id="345")
+        dottore = Dottore(first_name="marco",last_name="rossi",specialization= "dentista",parcel=22.3)
+        fattura = Fattura(patient=[paziente1,paziente2,paziente3],doctor=dottore)
+        fattura.removePatient(paziente3)
+        result = fattura.getPatient()
+        message = "Error. Should return a list of 2 patient"
+        self.assertEqual(result,[paziente1,paziente2],message)
         
 
 
