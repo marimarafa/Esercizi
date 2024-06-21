@@ -33,7 +33,7 @@ class Pagamento:
 
     def getImporto(self):
         return self.__importo
-    @abstractmethod
+    
     def dettagliPagamento(self):
         print(f"Importo del pagamento: €{self.getImporto()}")
 
@@ -41,7 +41,7 @@ class PagamentoContanti(Pagamento):
     def __init__(self) -> None:
         super().__init__()
     def dettagliPagamento(self):
-        return super().dettagliPagamento()
+        print(f"Importo del pagamento: €{self.getImporto()}")
     
     def inPezziDa(self):
         N = self.getImporto()
