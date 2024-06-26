@@ -119,31 +119,64 @@ pagamentocarta.dettagliPagamento()
 # L'area di questo triangolo vale: 8.0
 print("\n")
 class Forma:
-    def __init__(self,nome:str) -> None:
-        self.nome = nome
+    def __init__(self) -> None:
+        pass
     @abstractmethod
     def getArea(self):
         pass
     def render(self):
         pass
 class Quadrato(Forma):
-    def __init__(self, nome: str,lunghezza:int) -> None:
-        super().__init__(nome)
+    def __init__(self,lunghezza:int) -> None:
+        super().__init__()
         self.lunghezza = lunghezza
         self.nome = "Quadrato"
     def getArea(self):
         return f'L area di questo quadrato vale:{ self.lunghezza **2}'
     def render(self):
-        print(f"Ecco un Quadrato di lato {self.lunghezza}!")
+        print(f"Ecco un {self.nome} di lato {self.lunghezza}!")
         print( "*" *(self.lunghezza))
+        len = self.lunghezza -4
         for _ in range(self.lunghezza):
-            print(f'*  *')
+            print("*"," " * (len),"*")
         print( "*" *(self.lunghezza))
 
-Forma(nome=Quadrato)
-quad = Quadrato(nome="Quadrato",lunghezza=4)
+class Rettangolo(Forma):
+    def __init__(self,len_base :int,len_alt:int) -> None:
+        super().__init__()
+        self.base = len_base
+        self.alt = len_alt
+        self.nome = "Rettangolo"
+    def getArea(self):
+        return f'L area di questo rettangolo vale:{self.base *self.alt}'
+    def render(self):
+        print(f'Ecco un {self.nome} avente base {self.base} ed altezza {self.alt}!')
+        print("*" * self.base)
+        for _ in range(self.alt):
+            print("*"," " * (self.alt),"*")
+        print("*" * self.base)
+class Triangolo(Forma):
+    def __init__(self,len_base,len_alt) -> None:
+        super().__init__()
+        self.base = len_base
+        self.alt = len_alt
+    def getArea(self):
+        return  f'L area di questo triangolo vale:{self.base*self.alt/2}'
+    def render(self):
+        print("*")
+        
+
+    
+
+
+
+
+Forma()
+quad = Quadrato(lunghezza=5)
 print(quad.getArea())
 quad.render()
-
+rettan = Rettangolo(len_base=8,len_alt=4)
+print(rettan.getArea())
+rettan.render()
     
 
