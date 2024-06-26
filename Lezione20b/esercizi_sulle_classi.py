@@ -119,8 +119,8 @@ pagamentocarta.dettagliPagamento()
 # L'area di questo triangolo vale: 8.0
 print("\n")
 class Forma:
-    def __init__(self) -> None:
-        pass
+    def __init__(self,nome) -> None:
+        self.nome = nome
     @abstractmethod
     def getArea(self):
         pass
@@ -128,9 +128,8 @@ class Forma:
         pass
 class Quadrato(Forma):
     def __init__(self,lunghezza:int) -> None:
-        super().__init__()
+        super().__init__("Quadrato")
         self.lunghezza = lunghezza
-        self.nome = "Quadrato"
     def getArea(self):
         return f'L area di questo quadrato vale:{ self.lunghezza **2}'
     def render(self):
@@ -138,45 +137,43 @@ class Quadrato(Forma):
         print( "*" *(self.lunghezza))
         len = self.lunghezza -4
         for _ in range(self.lunghezza):
-            print("*"," " * (len),"*")
+            print("*" + " " * (self.lunghezza - 2) + "*")
         print( "*" *(self.lunghezza))
 
 class Rettangolo(Forma):
     def __init__(self,len_base :int,len_alt:int) -> None:
-        super().__init__()
+        super().__init__( "Rettangolo")
         self.base = len_base
         self.alt = len_alt
-        self.nome = "Rettangolo"
     def getArea(self):
         return f'L area di questo rettangolo vale:{self.base *self.alt}'
     def render(self):
         print(f'Ecco un {self.nome} avente base {self.base} ed altezza {self.alt}!')
         print("*" * self.base)
         for _ in range(self.alt):
-            print("*"," " * (self.alt),"*")
+            print("*" + " " * (self.base - 2) + "*")
         print("*" * self.base)
 class Triangolo(Forma):
-    def __init__(self,len_base,len_alt) -> None:
-        super().__init__()
-        self.base = len_base
-        self.alt = len_alt
+    def __init__(self,lato:int) -> None:
+        super().__init__("Triangolo")
+        self.lato = lato
     def getArea(self):
-        return  f'L area di questo triangolo vale:{self.base*self.alt/2}'
+        return  f'L area di questo triangolo vale:{(self.lato **2 )/2}'
     def render(self):
-        print("*")
-        
-
-    
-
-
-
-
-Forma()
+        print(f"Ecco un {self.nome} avente base e altezza {self.lato}!")
+        for i in range(self.lato):
+            for _ in range(i+1):
+                print("*" , end=" ")
+            print()
+            
 quad = Quadrato(lunghezza=5)
 print(quad.getArea())
 quad.render()
-rettan = Rettangolo(len_base=8,len_alt=4)
+rettan = Rettangolo(len_base=10,len_alt=4)
 print(rettan.getArea())
 rettan.render()
+triangolo = Triangolo(lato=4)
+print(triangolo.getArea())
+triangolo.render()
     
 
