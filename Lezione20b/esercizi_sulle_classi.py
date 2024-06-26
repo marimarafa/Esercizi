@@ -117,7 +117,33 @@ pagamentocarta.dettagliPagamento()
 # *   *  
 # * * * *
 # L'area di questo triangolo vale: 8.0
-
+print("\n")
 class Forma:
-    pass
+    def __init__(self,nome:str) -> None:
+        self.nome = nome
+    @abstractmethod
+    def getArea(self):
+        pass
+    def render(self):
+        pass
+class Quadrato(Forma):
+    def __init__(self, nome: str,lunghezza:int) -> None:
+        super().__init__(nome)
+        self.lunghezza = lunghezza
+        self.nome = "Quadrato"
+    def getArea(self):
+        return f'L area di questo quadrato vale:{ self.lunghezza **2}'
+    def render(self):
+        print(f"Ecco un Quadrato di lato {self.lunghezza}!")
+        print( "*" *(self.lunghezza))
+        for _ in range(self.lunghezza):
+            print(f'*  *')
+        print( "*" *(self.lunghezza))
+
+Forma(nome=Quadrato)
+quad = Quadrato(nome="Quadrato",lunghezza=4)
+print(quad.getArea())
+quad.render()
+
+    
 
