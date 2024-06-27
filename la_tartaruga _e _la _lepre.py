@@ -54,10 +54,11 @@
 
 # - Bonus:
 # Dislocati strategicamente lungo la corsa (es. ai quadrati 10, 25, 50), i bonus aumentano la posizione dell'animale di un numero determinato di quadrati (es: 5, 3, 10). I bonus sono rappresentati da un dizionario che mappa le posizioni dei bonus sul percorso (chiave) ed i relativi effetti (valore). Consentire agli animali di beneficiare pienamente dei bonus, ma non oltrepassare il traguardo.
-
+from Lezione22.lezione22 import Analisi
 
 import random
 
+@Analisi.tempo
 def position(turtle_pos, hare_pos,meteo):
     print("'BANG !!!!! AND THEY'RE OFF !!!!!'")
     ostacoli = {15 : 3,30 : 5 ,45 : 7}

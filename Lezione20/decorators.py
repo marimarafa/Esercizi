@@ -16,19 +16,18 @@ def parent():
 
 parent()
 
-
 def decorator(func):
-    def wrapper():
+    def wrapper(*args):
         import time
 
         start = time.time()
-        func()
-        print(f"Time elapsed: {time.time() - start()}")
+        func(*args)
+        print(f"Time elapsed: {time.time() - start}")
         
     return wrapper
 
 def ciao():
     print("Ciao !")
-
 ciao = decorator(ciao)
 ciao()
+
