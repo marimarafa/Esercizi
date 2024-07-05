@@ -163,6 +163,7 @@ class Triangolo(Forma):
         for i in range(self.lato):
             for _ in range(i+1):
                 print("*" , end=" ")
+                i += 1
             print()
             
 quad = Quadrato(lunghezza=5)
