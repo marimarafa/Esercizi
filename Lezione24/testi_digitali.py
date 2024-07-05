@@ -50,5 +50,4 @@ class File(Documento):
         return self.testo
     
     def getText(self):
-        return f'Percorso:{self.percorso} \nContenuto:{self.leggiTestoDaFile()}'
-    
+        return f'Percorso:{self.percorso} \nContenuto:{self.leggiTestoDaFile()}'  
