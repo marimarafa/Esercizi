@@ -5,7 +5,6 @@ class Analisi:
     def tempo(func):
         def wrapper(*args):
             import time
-
             start = time.time()
             func(*args)
             print(f"Time elapsed: {time.time() - start}")

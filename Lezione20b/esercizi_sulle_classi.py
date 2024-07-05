@@ -135,9 +135,8 @@ class Quadrato(Forma):
     def render(self):
         print(f"Ecco un {self.nome} di lato {self.lunghezza}!")
         print( "*" *(self.lunghezza))
-        len = self.lunghezza -4
-        for _ in range(self.lunghezza):
-            print("*" + " " * (self.lunghezza - 2) + "*")
+        for _ in range(self.lunghezza -2):
+            print("*" + (" " * (self.lunghezza - 2)) + "*") 
         print( "*" *(self.lunghezza))
 
 class Rettangolo(Forma):
@@ -150,7 +149,7 @@ class Rettangolo(Forma):
     def render(self):
         print(f'Ecco un {self.nome} avente base {self.base} ed altezza {self.alt}!')
         print("*" * self.base)
-        for _ in range(self.alt):
+        for _ in range(self.alt-2):
             print("*" + " " * (self.base - 2) + "*")
         print("*" * self.base)
 class Triangolo(Forma):
