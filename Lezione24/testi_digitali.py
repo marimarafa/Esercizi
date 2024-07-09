@@ -41,13 +41,12 @@ class Email(Documento):
     def getText(self):
         return f'Da:{self.getMit()},A:{self.getDes()} \nTitolo:{self.getTitMess()} \nMessaggio:{self.testo}'
     
+   
 class File(Documento):
     def __init__(self, testo: str,percorso) -> None:
         super().__init__(testo)
         self.percorso = percorso
     
-    def leggiTestoDaFile(self):
-        return self.testo
-    
     def getText(self):
-        return f'Percorso:{self.percorso} \nContenuto:{self.leggiTestoDaFile()}'  
+        return f'Percorso:{self.percorso} \nContenuto:{self.leggiTestoDaFile()}' 
+     
