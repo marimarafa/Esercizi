@@ -45,8 +45,17 @@ class Email(Documento):
 class File(Documento):
     def __init__(self, testo: str,percorso) -> None:
         super().__init__(testo)
-        self.percorso = percorso
+        self.percorso = f'Lezione24/{percorso}'
     
     def getText(self):
-        return f'Percorso:{self.percorso} \nContenuto:{self.leggiTestoDaFile()}' 
-     
+        return f'Percorso:{self.percorso} \nContenuto:Questo e il contenuto del file:\n{email.getText()}.' 
+    
+email = Email(mittente="bob12@gmail.com",destinatario="alice3@gmail.com",testo="Buongiorno alice come stai?",titolo_mess="Buongiorno")
+file1 = File(testo=email.getText(), percorso= "document.txt")
+
+def LeggiTestoDaFile():
+    with open(file1.percorso, "w") as file:
+        file.write(email.getText())
+LeggiTestoDaFile()
+
+
