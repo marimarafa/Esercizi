@@ -39,9 +39,16 @@ class Decodificatoremessaggio(ABC):
     def decodifica(testoCodificato):
         pass
 
-class CifratoreAScorrimento:
+class CifratoreAScorrimento(CodificatoreMessaggio):
     def __init__(self,chiave) -> None:
+        super().__init__()
         self.chiave = chiave
+        
+    def codifica(self,testoInChiaro):
+        lista_lettere = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q",]
+        for l in testoInChiaro:
+            
+
 
 
     
