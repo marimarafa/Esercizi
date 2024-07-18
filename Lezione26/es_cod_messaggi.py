@@ -45,8 +45,12 @@ class CifratoreAScorrimento(CodificatoreMessaggio):
         self.chiave = chiave
         
     def codifica(self,testoInChiaro):
-        lista_lettere = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q",]
+        lista_lettere = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
         for l in testoInChiaro:
+            for i in lista_lettere:
+                if l in lista_lettere:
+                    l =  i.index + self.chiave 
+
             
 
 
