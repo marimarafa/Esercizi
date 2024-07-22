@@ -130,15 +130,13 @@ class Movie:
         self.is_rented = False
     def rent(self):
         if self.is_rented:
-            self.is_rented = True
             print(f"Il film {self.title} è già noleggiato.")
         else:
-            self.is_rented = False
+            self.is_rented = True
     def return_movie(self):
-        if self.rent():
+        if self.is_rented:
             self.is_rented = False
         else:
-            self.is_rented = True
             print(f"Il film {self.title} non è attualmente noleggiato.")
             
 class Customer:
@@ -147,12 +145,14 @@ class Customer:
         self.name = name
         self.rented_movie :list[Movie]= []
     def rent_movie(self,movie:Movie):
-        if movie.is_rented: 
+        if  not movie.is_rented:
+            movie.rent() 
             self.rented_movie.append(movie)
         else:
             print(f"Il film {movie.title} è già noleggiato.")
     def return_movie(self,movie:Movie):
         if movie in self.rented_movie:
+            movie.return_movie()
             self.rented_movie.remove(movie)
         else:
             print(f"Il film {movie.title} non è stato noleggiato da questo cliente.")
@@ -174,17 +174,22 @@ class VideoRentalStore:
             print(f"Il cliente con ID {customer_id} è già registrato.")
     def rent_movie(self,customer_id: str, movie_id: str):
         if customer_id in self.customers and movie_id in self.movies:
-            customer_id.rent_movie(movie_id)
+            customer = self.customers[customer_id]
+            movie = self.movies[movie_id]
+            customer.rent_movie(movie)
         else:
             print("Cliente o film non trovato.")
     def return_movie(self,customer_id:str,movie_id:str):
         if customer_id in self.customers and movie_id in self.movies:
-            customer_id.return_movie(movie_id)
+            customer = self.customers[customer_id]
+            movie = self.movies[movie_id]
+            customer.return_movie(movie)
         else:
             print("Cliente o film non trovato.")
     def get_rented_movies(self,customer_id:str)-> list[Movie]:
         if customer_id in self.customers:
-            return customer_id.rented_movie()
+            customer = self.customers[customer_id]
+            return customer.rented_movie
         else:
             print("Cliente non trovato")
             return []
@@ -367,21 +372,36 @@ class RecipeManager:
         return self.ricette
     
     def update_ingredient(self,recipe_name:str, old_ingredient:str, new_ingredient:str):
-        for value in self.ricette.values():
-            if recipe_name in self.ricette:
-                if value == old_ingredient:
-                    old_ingredient = new_ingredient
+        if recipe_name in self.ricette:
+            ingredients = self.ricette[recipe_name]
+            for v in range(len(ingredients)):
+                if ingredients[v] == old_ingredient:
+                    ingredients[v] = new_ingredient
         return self.ricette
-
-
-
-
-
-
-
+    
+    def list_recipes(self):
+        for recipe in self.ricette:
+            return([recipe])
+            
+    def list_ingredients(self,recipe_name:str):
+        if recipe_name in self.ricette:
+            return self.ricette[recipe_name]
+        else:
+            print("Ricetta non trovata")
+    def search_recipe_by_ingredient(self,ingredient:str):
+        recipe ={}
+        for recipes,ingredients in self.ricette.items():
+            if ingredient in ingredients:
+                recipe[recipes] = ingredients
+                return recipe
+            else:
+                print("Ricetta non trovata")
+                
 manager = RecipeManager()
 print(manager.create_recipe("Pizza Margherita", ["Farina", "Acqua", "Lievito", "Pomodoro", "Mozzarella"]))
 print(manager.add_ingredient("Pizza Margherita", "Basilico"))
 print(manager.update_ingredient("Pizza Margherita", "Mozzarella", "Mozzarella di Bufala"))
 print(manager.remove_ingredient("Pizza Margherita", "Acqua"))
-#print(manager.list_ingredients("Pizza Margherita"))      
+print(manager.list_recipes())
+print(manager.list_ingredients("Pizza Margherita"))
+print(manager.search_recipe_by_ingredient("Farina"))   
