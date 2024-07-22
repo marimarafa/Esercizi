@@ -130,10 +130,10 @@ class Movie:
         self.is_rented = False
     def rent(self):
         if self.is_rented:
-            self.is_rented = False
+            self.is_rented = True
             print(f"Il film {self.title} è già noleggiato.")
         else:
-            self.is_rented = True
+            self.is_rented = False
     def return_movie(self):
         if self.rent():
             self.is_rented = False
@@ -147,7 +147,7 @@ class Customer:
         self.name = name
         self.rented_movie :list[Movie]= []
     def rent_movie(self,movie:Movie):
-        if movie.is_rented:
+        if movie.is_rented: 
             self.rented_movie.append(movie)
         else:
             print(f"Il film {movie.title} è già noleggiato.")
@@ -157,9 +157,9 @@ class Customer:
         else:
             print(f"Il film {movie.title} non è stato noleggiato da questo cliente.")
 class VideoRentalStore:
-    def __init__(self,movies:dict[str,Movie],customers:dict[str,Customer]) -> None:
-        self.movies = movies
-        self.customers = customers
+    def __init__(self) -> None:
+        self.movies: dict[str,Movie] = {}
+        self.customers: dict[str,Customer] = {}
     def add_movie(self,movie_id: str, title: str, director: str): 
         if movie_id not in self.movies:
             new_movie = Movie(movie_id,title,director)
@@ -174,11 +174,52 @@ class VideoRentalStore:
             print(f"Il cliente con ID {customer_id} è già registrato.")
     def rent_movie(self,customer_id: str, movie_id: str):
         if customer_id in self.customers and movie_id in self.movies:
-            pass
-            
+            customer_id.rent_movie(movie_id)
         else:
             print("Cliente o film non trovato.")
-    
+    def return_movie(self,customer_id:str,movie_id:str):
+        if customer_id in self.customers and movie_id in self.movies:
+            customer_id.return_movie(movie_id)
+        else:
+            print("Cliente o film non trovato.")
+    def get_rented_movies(self,customer_id:str)-> list[Movie]:
+        if customer_id in self.customers:
+            return customer_id.rented_movie()
+        else:
+            print("Cliente non trovato")
+            return []
+
+# Creazione di un nuovo videonoleggio
+videonoleggio = VideoRentalStore()
+
+# Aggiunta di nuovi film
+videonoleggio.add_movie("1", "Inception", "Christopher Nolan")
+videonoleggio.add_movie("2", "The Matrix", "Wachowski Brothers")
+
+# Registrazione di nuovi clienti
+videonoleggio.register_customer("101", "Alice")
+videonoleggio.register_customer("102", "Bob")
+
+# Noleggio di film
+videonoleggio.rent_movie("101", "1")
+videonoleggio.rent_movie("102", "2")
+
+# Tentativo di noleggiare un film già noleggiato
+videonoleggio.rent_movie("101", "1")
+
+# Restituzione di film
+videonoleggio.return_movie("101", "1")
+
+# Tentativo di restituire un film non noleggiato
+videonoleggio.return_movie("101", "1")
+
+# Ottenere la lista dei film noleggiati da un cliente
+rented_movies_alice = videonoleggio.get_rented_movies("101")
+print(f"Film noleggiati da Alice: {[movie.title for movie in rented_movies_alice]}")
+
+rented_movies_bob = videonoleggio.get_rented_movies("102")
+print(f"Film noleggiati da Bob: {[movie.title for movie in rented_movies_bob]}")
+
 #Scrivi una funzione che prenda un dizionario e un valore, e ritorni la prima chiave che corrisponde a quel valore, o None se il valore non è presente.
 def trova_chiave_per_valore(dizionario: dict[str: int], valore: int) -> str:
     for key,value in dizionario.items():
@@ -265,6 +306,82 @@ moto = Moto("Yamaha", "R1", 2022, "sportiva")
 veicolo.descrivi_veicolo()  
 auto.descrivi_veicolo()  
 moto.descrivi_veicolo()  
+
+#Scrivi una funzione che converta una lista di tuple (chiave, valore) in un dizionario. Se la chiave è già presente, aggiungi il valore alla lista di valori già associata alla chiave.
+def lista_a_dizionario(tuples: tuple) -> dict[str:list[int]]:
+    dizionario = {}
+    lista = []
+    for tup in tuples:
+        for elem in tup:
+            if type(elem) is int:
+                lista.append(elem)
+            else:
+                dizionario[elem] = lista
+    return dizionario
+                
+print(lista_a_dizionario([('a', 1), ('b', 2), ('a', 3)]))
+print(lista_a_dizionario([]))
+
+# Sviluppa un sistema per la gestione delle ricette in Python che permetta agli utenti di creare, modificare, e cercare ricette basate sugli ingredienti. Il sistema dovrà essere capace di gestire una collezione (dizionario) di ricette e i loro ingredienti.
+
+# Classe:
+# - RecipeManager:
+#     Gestisce tutte le operazioni legate alle ricette.
+
+#     Metodi:
+#     - create_recipe(name, ingredients): Crea una nuova ricetta con il nome specificato e una lista di ingredienti. Restituisce un nuovo dizionario con la sola ricetta appena creata o un messaggio di errore se la ricetta esiste già.
+
+#     - add_ingredient(recipe_name, ingredient): Aggiunge un ingrediente alla ricetta specificata. Restituisce la ricetta aggiornata o un messaggio di errore se l'ingrediente esiste già o la ricetta non esiste.
+
+#     - remove_ingredient(recipe_name, ingredient): Rimuove un ingrediente dalla ricetta specificata. Restituisce la ricetta aggiornata o un messaggio di errore se l'ingrediente non è presente o la ricetta non esiste.
+
+#     - update_ingredient(recipe_name, old_ingredient, new_ingredient): Sostituisce un ingrediente con un altro nella ricetta specificata. Restituisce la ricetta aggiornata o un messaggio di errore se l'ingrediente non è presente o la ricetta non esiste.
+
+#     - list_recipes(): Elenca tutte le ricette esistenti.
+
+#     - list_ingredients(recipe_name): Mostra gli ingredienti di una specifica ricetta. Restituisce un elenco di ingredienti o un messaggio di errore se la ricetta non esiste.
+
+#     - search_recipe_by_ingredient(ingredient): Trova e restituisce tutte le ricette che contengono un determinato ingrediente. Restituisce un elenco di ricette o un messaggio di errore se nessuna ricetta contiene l'ingrediente.
+class RecipeManager:
+    def __init__(self) -> None:
+        self.ricette: dict[str:list[str]] = {}
+    def create_recipe(self,name:str,ingredients:list[str]):
+        if name in self.ricette:
+            print("Ricetta già esistente.")
+        else:
+            self.ricette = {name:ingredients}
+        return self.ricette
+    def add_ingredient(self,name_recipe:str,ingredient:str):
+        for value in self.ricette.values():
+            if name_recipe in self.ricette:
+                value.append(ingredient)
+            else:
+                print("Ricetta non trovata.")
+        return self.ricette
+    def remove_ingredient(self,name_recipe:str,ingredient:str):
+        for value in self.ricette.values():
+            if name_recipe in self.ricette:
+                value.remove(ingredient)
+            else:
+                print("Ricetta non trovata.")
+        return self.ricette
     
-            
-        
+    def update_ingredient(self,recipe_name:str, old_ingredient:str, new_ingredient:str):
+        for value in self.ricette.values():
+            if recipe_name in self.ricette:
+                if value == old_ingredient:
+                    old_ingredient = new_ingredient
+        return self.ricette
+
+
+
+
+
+
+
+manager = RecipeManager()
+print(manager.create_recipe("Pizza Margherita", ["Farina", "Acqua", "Lievito", "Pomodoro", "Mozzarella"]))
+print(manager.add_ingredient("Pizza Margherita", "Basilico"))
+print(manager.update_ingredient("Pizza Margherita", "Mozzarella", "Mozzarella di Bufala"))
+print(manager.remove_ingredient("Pizza Margherita", "Acqua"))
+#print(manager.list_ingredients("Pizza Margherita"))      
