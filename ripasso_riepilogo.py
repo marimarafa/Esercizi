@@ -319,9 +319,10 @@ def lista_a_dizionario(tuples: tuple) -> dict[str:list[int]]:
     for tup in tuples:
         for elem in tup:
             if type(elem) is int:
-                lista.append(elem)
+                    lista.append(elem)
             else:
                 dizionario[elem] = lista
+
     return dizionario
                 
 print(lista_a_dizionario([('a', 1), ('b', 2), ('a', 3)]))
