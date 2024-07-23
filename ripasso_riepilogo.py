@@ -149,45 +149,45 @@ class Customer:
             movie.rent() 
             self.rented_movie.append(movie)
         else:
-            print(f"Il film {movie.title} è già noleggiato.")
+            print(f"Il film '{movie.title}' è già noleggiato.")
     def return_movie(self,movie:Movie):
         if movie in self.rented_movie:
             movie.return_movie()
             self.rented_movie.remove(movie)
         else:
-            print(f"Il film {movie.title} non è stato noleggiato da questo cliente.")
+            print(f"Il film '{movie.title}' non è stato noleggiato da questo cliente.")
 class VideoRentalStore:
     def __init__(self) -> None:
         self.movies: dict[str,Movie] = {}
         self.customers: dict[str,Customer] = {}
     def add_movie(self,movie_id: str, title: str, director: str): 
-        if movie_id not in self.movies:
+        if movie_id not in self.movies.keys():
             new_movie = Movie(movie_id,title,director)
             self.movies[movie_id] = new_movie
         else:
             print(f"Il film con ID {movie_id} esiste già.")
     def register_customer(self,customer_id: str, name: str):
-        if customer_id not in self.customers:
+        if customer_id not in self.customers.keys():
             new_customer = Customer(customer_id,name)
-            self.movies[customer_id] = new_customer
+            self.customers[customer_id] = new_customer
         else:
             print(f"Il cliente con ID {customer_id} è già registrato.")
     def rent_movie(self,customer_id: str, movie_id: str):
-        if customer_id in self.customers and movie_id in self.movies:
+        if customer_id in self.customers.keys() and movie_id in self.movies.keys():
             customer = self.customers[customer_id]
             movie = self.movies[movie_id]
             customer.rent_movie(movie)
         else:
             print("Cliente o film non trovato.")
     def return_movie(self,customer_id:str,movie_id:str):
-        if customer_id in self.customers and movie_id in self.movies:
+        if customer_id in self.customers.keys() and movie_id in self.movies.keys():
             customer = self.customers[customer_id]
             movie = self.movies[movie_id]
             customer.return_movie(movie)
         else:
             print("Cliente o film non trovato.")
     def get_rented_movies(self,customer_id:str)-> list[Movie]:
-        if customer_id in self.customers:
+        if customer_id in self.customers.keys():
             customer = self.customers[customer_id]
             return customer.rented_movie
         else:
