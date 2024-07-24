@@ -1,4 +1,4 @@
-# Scrivi una funzione che verifica se una combinazione di condizioni (A, B, e C) è soddisfatta per procedere con un'operazione. L'operazione può procedere solo se la condizione A è vera o se 
+"""# Scrivi una funzione che verifica se una combinazione di condizioni (A, B, e C) è soddisfatta per procedere con un'operazione. L'operazione può procedere solo se la condizione A è vera o se 
 # entrambe le condizioni B e C sono vere. La funzione deve ritornare "Operazione permessa" oppure "Operazione negata" a seconda delle condizioni che sono soddisfatte.
 
 def check_combination(conditionA: bool, conditionB: bool, conditionC: bool) -> str:
@@ -435,6 +435,7 @@ print(manager.search_recipe_by_ingredient("Farina"))
             # borrow_book(member_id: str, book_id: str): Permette al membro di prendere in prestito il libro.
             # return_book(member_id: str, book_id: str): Permette al membro di restituire il libro.
             # get_borrowed_books(member_id): list[Book] - restituisce la lista dei libri presi in prestito dal membro.
+"""
 
 class Book:
     def __init__(self,book_id:str,title:str,author:str,) -> None:
@@ -446,7 +447,9 @@ class Book:
     def borrow(self):
         if  not self.is_borrowed:
             self.is_borrowed = True
-
+            return False
+        return True
+            
     def return_book(self):
         if self.is_borrowed:
             self.is_borrowed = False
@@ -462,10 +465,12 @@ class Member:
             self.borrowed_books.append(book.title)
         else:
             print("Book is already borrowed")
-
+        
     def return_book(self,book:Book):
         if book.title in self.borrowed_books:
             self.borrowed_books.remove(book.title)
+        else:
+            print("Book not borrowed by this member")
 
 class Library:
     def __init__(self) -> None:
@@ -485,15 +490,14 @@ class Library:
     def borrow_book(self,member_id: str, book_id: str):
         if not member_id in self.members:
             print("Member not found")
-        elif not book_id in self.books:
+        if not book_id in self.books:
             print("Book not found")
-        elif member_id in self.members and book_id in self.books:
+        if member_id in self.members and book_id in self.books:
             member:Member = self.members[member_id]
             book :Book = self.books[book_id]
-            member.return_book(book)
+            member.borrow_book(book)
     
     def return_book(self,member_id: str, book_id: str):
-
         if member_id in self.members and book_id in self.books:
             book:Book = self.books[book_id]
             member :Member= self.members[member_id]
@@ -502,7 +506,7 @@ class Library:
     def get_borrowed_books(self,member_id:str)->list[Book]:
         if member_id in self.members.keys():
             member :Member= self.members[member_id]
-            return member.borrowed_books 
+            return member.borrowed_books
         
 
 library = Library()
@@ -520,17 +524,82 @@ library.register_member("M003", "Charlie")
 library.borrow_book("M001", "B001")
 library.borrow_book("M002", "B002")
 
-
  # Return books
 library.return_book("M001", "B001")
 library.return_book("M002", "B002")
 
-
-# Edge case - trying to borrow a book by a non-existent member
+library.borrow_book("M001", "B001")
 try:
-    library.borrow_book("M004", "B001")
+    library.borrow_book("M002", "B001")
 except ValueError as e:
     print(e)
+    
+    
+    
+# Progettare un semplice sistema bancario con i seguenti requisiti:
 
-	
+# Classe del Account:
+# Attributi:
+# account_id: str - identificatore univoco per l'account.
+# balance: float - il saldo attuale del conto.
+# Metodi:
+# deposit(amount: float) - aggiunge l'importo specificato al saldo del conto.
+# get_balance(): restituisce il saldo corrente del conto.
+# Classe Bank:
+# Attributi:
+# accounts: dict[str, Account] - un dizionario per memorizzare gli account in base ai loro ID.
+# Metodi:
+# create_account(account_id): crea un nuovo account con l'ID specificato e un saldo pari a 0.
+# deposit(account_id, amount): deposita l'importo specificato sul conto con l'ID fornito.
+# get_balance(account_id): restituisce il saldo del conto con l'ID specificato
+
+class Account:
+    def __init__(self,account_id:str) -> None:
+        self.account_id = account_id
+        self.balance :float= 0.0
+        
+    def deposit(self,amount:float):
+        self.balance += amount
+        
+    def get_balance(self):
+        return int(self.balance)
+    
+class Bank:
+    def __init__(self) -> None:
+        self.accounts:dict[str,Account]={}
+        
+    def create_account(self,account_id:str):
+        if account_id not in self.accounts.keys():
+            self.accounts[account_id] = Account(account_id)
+        else:
+            print("Account with this ID already exists")
+        return self.accounts[account_id]
+            
+            
+    def deposit(self,account_id:str,amount:float):
+        if account_id in self.accounts.keys():
+            self.accounts[account_id].deposit(amount)
+            
+    def get_balance(self,account_id:str):
+        if account_id in self.accounts.keys():
+            return self.accounts[account_id].get_balance()
+        else:
+            print("Account not found")
+
+bank = Bank()
+account1 = bank.create_account("123")
+print(account1.get_balance())
+
+bank = Bank()
+account1 = bank.create_account("123")
+bank.deposit("123",100)
+print(bank.get_balance("123"))
+
+bank = Bank()
+account2 = bank.create_account("456")
+bank.deposit("456",200)
+print(bank.get_balance("456"))
+        
+        
+
 
