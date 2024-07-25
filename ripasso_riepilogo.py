@@ -461,14 +461,16 @@ class Member:
         self.borrowed_books :list[Book]= []
 
     def borrow_book(self,book:Book):
-        if not book.borrow():
-            self.borrowed_books.append(book.title)
+        if book not in self.borrowed_books and book.is_borrowed == False:
+            self.borrowed_books.append(book)
+            book.borrow()
         else:
             print("Book is already borrowed")
         
     def return_book(self,book:Book):
-        if book.title in self.borrowed_books:
-            self.borrowed_books.remove(book.title)
+        if book in self.borrowed_books:
+            self.borrowed_books.remove(book)
+            book.return_book()
         else:
             print("Book not borrowed by this member")
 
@@ -478,7 +480,7 @@ class Library:
         self.members :dict[str:Member] = {}
     
     def add_book(self,book_id: str, title: str, author: str):
-        if book_id not in self.books:
+        if book_id not in self.books.keys():
             book = Book(book_id,title,author)
             self.books[book_id] = book
     
@@ -490,12 +492,13 @@ class Library:
     def borrow_book(self,member_id: str, book_id: str):
         if not member_id in self.members:
             print("Member not found")
-        if not book_id in self.books:
+        elif not book_id in self.books:
             print("Book not found")
-        if member_id in self.members and book_id in self.books:
+        else:
             member:Member = self.members[member_id]
             book :Book = self.books[book_id]
             member.borrow_book(book)
+
     
     def return_book(self,member_id: str, book_id: str):
         if member_id in self.members and book_id in self.books:
@@ -504,9 +507,12 @@ class Library:
             member.return_book(book)
             
     def get_borrowed_books(self,member_id:str)->list[Book]:
+        lista =[]
         if member_id in self.members.keys():
             member :Member= self.members[member_id]
-            return member.borrowed_books
+        for book in member.borrowed_books:
+            lista.append(book.title)
+        return lista
         
 
 library = Library()
@@ -524,15 +530,8 @@ library.register_member("M003", "Charlie")
 library.borrow_book("M001", "B001")
 library.borrow_book("M002", "B002")
 
- # Return books
-library.return_book("M001", "B001")
-library.return_book("M002", "B002")
-
-library.borrow_book("M001", "B001")
-try:
-    library.borrow_book("M002", "B001")
-except ValueError as e:
-    print(e)
+print(library.get_borrowed_books("M001"))  # Expected output: ['The Great Gatsby']
+print(library.get_borrowed_books("M002"))  #
     
     
     
